@@ -7,6 +7,7 @@ use App\Room;
 use App;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 class StudentsController extends Controller
 {
     
@@ -82,7 +83,7 @@ class StudentsController extends Controller
         //             ]
         //         );
                 
-                return redirect('admin/home')
+            return redirect()->route('students.index')
                 ->with('success','Student Record Added');
         
     }
@@ -106,11 +107,15 @@ class StudentsController extends Controller
      */
     public function edit(Student $student)
     {
-        // $std = App\Student::find($student);
-        $std = Student::where('id',$student)->get();
+        $std = App\Student::findOrFail($student);
+        // $std = Student::where('id', $student)->get();
+
+        // $std = DB::statement('SELECT * FROM students WHERE id=?',[$student]);
+        // $std = DB::table('students')->where('id', $student )->first();
     
         return view('admin.pages.students.edit-student')
-                ->with('student',$std);
+                ->with('student', $std)
+                ->with('rooms', App\Room::all());
     }
 
     /**

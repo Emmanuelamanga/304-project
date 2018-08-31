@@ -43,10 +43,11 @@ Route::group(['prefix'=>'teacher'],function(){
     Route::resource('results','ResultsController');    
  });  
 
- 
-	
-Route::get('/users', 'PdfController@index');
-Route::get('/users/report/{view_type}', 'PdfController@report');
+
+//pdf routes 	
+Route::get('/pdf', 'PdfController@index')->name('pdf');
+Route::get('/pdf/report/{id}', 'PdfController@report');
+Route::get('/pdf/{id}', 'PdfController@viewPDF');
  
  
 

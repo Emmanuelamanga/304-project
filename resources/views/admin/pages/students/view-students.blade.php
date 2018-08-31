@@ -6,10 +6,10 @@
 @endsection
 
 @section('window')
-
-@if(count($students)>0)
-<h1>ALL STUDENTS {{count($students)}}</h1>
 @include('admin.inc.messages')
+@if(count($students)>0)
+<h1 class="text-center">STUDENTS RECORDS&nbsp;<span class="label label-primary"><span class="badge">{{count($students)}}</span></span></h1>
+<hr>
    <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
     <div class="input-group mb-2 mr-sm-2">
         <div class="input-group-prepend">
@@ -18,10 +18,13 @@
         <input type="text" class="form-control py-0" onkeyup="myFunction()" id="myInput" placeholder="Search ...">
     </div>
 
-
+<br>
 	<table id="myTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
   <thead>
     <tr>
+       <th class="th-sm">#
+        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+      </th>
       <th class="th-sm">NAME
         <i class="fa fa-sort float-right" aria-hidden="true"></i>
       </th>
@@ -49,8 +52,9 @@
   </thead>
   <tbody>
   	
-  		@foreach($students as $student)
+  		@foreach($students as $key =>  $student)
 		    <tr>
+          <td>{{$key+1}}</td>
 		      <td>{{$student->name}}</td>
 		      <td>{{$student->adm_no}}</td>
 		      <td>{{$student->dob}}</td>
@@ -65,6 +69,8 @@
   </tbody>
   <tfoot>
     <tr>
+    <th>#</i>
+      </th>
       <th>Name</i>
       </th>
       <th>ADM NO</i>

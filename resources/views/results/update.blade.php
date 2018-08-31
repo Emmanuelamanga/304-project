@@ -21,7 +21,7 @@ $temperatures->addStringColumn('Subjects')
              ->addRow(['COMPUTER', $details->computer])
              ->addRow(['BUSINESS', $details->business])
              ->addRow(['AGRICULTURE', $details->agriculture]);
-
+             
 $lava->LineChart('Temps', $temperatures, [
     'title' => 'STUDENT PERFORMANCE CURVE'
 ]);
@@ -218,7 +218,8 @@ $lava->LineChart('Temps', $temperatures, [
                     </div>
                     
                     
-            </div><div id="Marks_div" class="float-right"></div>
+            </div>
+            <div id="Marks_div" class="float-right"></div>
                      <!-- // With the lava object -->
                     <?= $lava->render('LineChart', 'Temps', 'Marks_div') ?>
                     </div>

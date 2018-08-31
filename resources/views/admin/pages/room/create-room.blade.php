@@ -11,9 +11,14 @@
 
 @section('window')
  @include('admin.inc.messages')
+ <div class="panel panel-default">
+ <div class="panel-heading text-center">
+        <h3>ADD CLASS</h3>
+ </div>
+ <div class="panel-body">
  <form class="text-center border border-light p-5" method="POST" action="{{route('rooms.store')}}">
         @csrf
-        <h3>ADD CLASS</h3>
+        
         <div class="row">  
         <!-- Class Ref Number -->
             <div class="col-md-6">
@@ -27,9 +32,8 @@
                 </div>
             </div>
             
-
+<!-- Class Name -->
         <div class="col-md-6">
-          <!-- Class Name -->
           <div class="form-group{{ $errors->has('class_name') ? ' has-error' : '' }}">  
             <input id="class_name" type="text" class="form-control{{ $errors->has('class_name') ? ' is-invalid' : '' }}" name="class_name" value="{{ old('class_name') }}" placeholder="Class  Name">
             @if ($errors->has('class_name'))
@@ -38,6 +42,7 @@
                 </span>
             @endif 	
             </div>
+        </div>
         </div>
 
         <br>
@@ -79,7 +84,11 @@
     </div>
       <br>
           <!-- Submit  button -->
-        <button class="btn btn-info my-4 btn-block" type="submit">ADD</button>
+        <button class="btn btn-info my-2 " type="submit">ADD CLASS</button>
 
   </form>
+ </div>
+ </div>
+ 
+ 
 @endsection

@@ -13,9 +13,9 @@
     <ul class="nav navbar-nav navbar-right">
     
     @auth
-        <a href="{{ url('/home') }}">Home</a>
+         <a href="{{ url('/home') }}">Home</a> 
     @else
-    <li class="dropdown">
+    <!-- <li class="dropdown">
         <a class="btn btn-default btn-outline-secondary dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-log-in"></span>  Login
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -23,7 +23,7 @@
           <li><a href="{{ route('teacher_login') }}">TEACHER</a></li>
           <li><a href="#">CLASS TEACHER</a></li>
         </ul>
-      </li>
+      </li> -->
     <!-- <li><a href="{{ route('register') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
     @endauth
     </ul>   <!-- @if(Route::has('login')) -->

@@ -51,7 +51,7 @@ $lava->ColumnChart('Finances', $finances,
                         // 'title' => 'CLASS SUBJECTS PERFORMANCE',
                         'titleTextStyle' => [
                             'color'    => 'rgb(123, 65, 89)',
-                            'fontSize' => 18
+                            'fontSize' => 16
                         ],
                         'legend' => [
                             'position' => 'out'

@@ -9,7 +9,7 @@
 @endsection
 
 @section('window')
-    <h4>events Changer</h4>
+    <h4  >HomePage </h4>
 @endsection
 
 

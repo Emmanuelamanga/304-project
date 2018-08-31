@@ -121,7 +121,6 @@ class ResultsController extends Controller
      */
     public function edit($id)
     {
-        
          // find student details
         //  $details = Student::findOrFail($id);
 

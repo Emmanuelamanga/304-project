@@ -7,6 +7,8 @@ use App;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\DB;
+
 class RoomsController extends Controller
 {
     /**
@@ -16,7 +18,8 @@ class RoomsController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.room.view-rooms')->with('rooms', App\Room::all());
+        return view('admin.pages.room.view-rooms')
+            ->with('rooms', App\Room::all());
     }
 
     /**
@@ -80,7 +83,7 @@ class RoomsController extends Controller
         return view('admin.pages.room.edit-room')
             ->with('room', Room::find($id))
             ->with('teachers', Teacher::all())            
-            ->with('rooms', Room::all());
+            ->with('roomx', Room::all());
     }
 
     /**
@@ -92,7 +95,26 @@ class RoomsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'class_referance_number' => 'required|numeric',
+            'class_name' => 'required|string|min:3',
+            'class_capacity' => 'required|numeric',
+            'class_teacher' => 'required|string|min:3'
+            ]);
+
+
+            DB::table('rooms')->where('id', $id)->update(
+                    [
+                        'ref_no'=>$request->class_referance_number,
+                        'class_name'=>$request->class_name,
+                        'class_capacity'=>$request->class_capacity,
+                        'class_teacher'=>$request->class_teacher,
+                        
+                    ]);
+            
+
+         return redirect()->route('rooms.index')
+                        ->with('success','Class Updated');
     }
 
     /**
@@ -103,6 +125,7 @@ class RoomsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('rooms')->where('id', $id)->delete();
+        return redirect()->back()->with('success','Class Deleted');
     }
 }

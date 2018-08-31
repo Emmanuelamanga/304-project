@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-	@include('admin.inc.messages')
+	
 @endsection
 
 @section('left-nav')
@@ -15,7 +15,7 @@
 @endsection
 	
 @section('window')
-
+        @include('admin.inc.messages')
  @if(count($teachers)>0)
  <h4 class='text-center'>ALL TEACHERS</h4>
 <table  class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%"

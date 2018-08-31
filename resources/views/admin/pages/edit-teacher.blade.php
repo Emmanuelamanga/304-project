@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-	@include('admin.inc.messages')
+	
 @endsection
 
 @section('left-nav')
@@ -13,6 +13,7 @@
 @endsection
 	
 @section('window')
+    @include('admin.inc.messages')
 <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="panel panel-default">

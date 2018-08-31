@@ -11,17 +11,16 @@
 
 @section('window')
  @include('admin.inc.messages')
- <form class="text-center border border-light p-5" method="POST" action="{{route('rooms.update',['$room->id'])}}">
-                                                   
+ <form class="text-center border border-light p-5" method="POST" action="{{route('rooms.update',[$room->id])}}">                                           
         @csrf
         {{ @method_field('PATCH') }}
+
         <h3>EDIT CLASS</h3>
-          
-        <!-- Class Ref Number --><label for="name" class="col-md-4 control-label">CLASS REFERANCE NUMBER</label>
+        <!-- Class Ref Number -->
+        <label for="name" class="col-md-4 control-label">CLASS REFERANCE NUMBER</label>
             <div class="col-md-6">
-            
                 <div class="form-group{{ $errors->has('class_referance_number') ? ' has-error' : '' }}">  
-                    <input id="class_referance_number" type="text" class="form-control{{ $errors->has('class_referance_number') ? ' is-invalid' : '' }}" name="class_referance_number" value="{{ old('$room->ref_no',$room->ref_no) }}" placeholder="Class Reference Number">
+                    <input id="class_referance_number" type="text" class="form-control {{ $errors->has('class_referance_number') ? ' is-invalid' : '' }}" name="class_referance_number" value="{{ old('$room->ref_no',$room->ref_no) }}">
                     @if ($errors->has('class_referance_number'))
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('class_referance_number') }}</strong>
@@ -29,26 +28,25 @@
                     @endif 	
                 </div>
             </div> <br>
-         <div class="row">   
-
+         <div class="row">
         <div class="col-md-6">
-          <!-- Class Name --> <!-- select class -->
-          <div class="form-group {{$errors->has('student_class') ? ' has-error' : '' }}">
+          <!-- Class Name --> 
+          <div class="form-group {{$errors->has(' class_name') ? ' has-error' : '' }}">
             <label for="name" class="col-md-4 control-label">FORM</label>
                     <div class="col-md-6">  
-                    <select class="form-control {{ $errors->has('student_class') ? 'is-invalid' : '' }}" name="student_class"  value="{{ old('student_class') }}">
+                    <select class="form-control {{ $errors->has(' class_name') ? 'is-invalid' : '' }}" name=" class_name" >
                         <option value="{{$room->class_name}}"  selected>{{strtoupper($room->class_name)}}</option>
-                        @if(count($rooms)>0)
-                            @foreach($rooms as $room)
-                            <option value="{{$room->class_name}}">{{strtoupper($room->class_name)}}</option> 
+                        @if(count($roomx)>0)
+                            @foreach($roomx as $roomy)
+                            <option value="{{$roomy->class_name}}">{{strtoupper($roomy->class_name)}}</option> 
                             @endforeach
                         @else
                         {{ _('No CLASSES Yet') }} 
                         @endif         
                     </select>    
-                        @if ($errors->has('student_class'))
+                        @if ($errors->has(' class_name'))
                             <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('student_class') }}</strong>
+                                <strong>{{ $errors->first(' class_name') }}</strong>
                             </span>
                         @endif
                     </div>
@@ -56,28 +54,27 @@
             </div>    
  <br>
  <!-- class teacher -->
- <div class="col-md-6">
-                   
-            <div class="form-group {{$errors->has('class_teacher') ? ' has-error' : '' }}">
-                <label for="name" class="col-md-4 control-label">CLASS TEACHER</label>
-                    <div class="col-md-6">  
-                    <select class="form-control {{ $errors->has('class_teacher') ? 'is-invalid' : '' }}" name="class_teacher"  value="{{ old('$room->class_teacher') }}">
-                        <option value=""  selected>Select Teacher</option>
-                        @if(count($teachers)>0)
-                            @foreach($teachers as $teacher)
-                            <option value="{{$teacher->id_no}}">{{strtoupper($teacher->name)}}</option> @endforeach
-                        @else
-                        {{ _('No CLASSES Yet') }} 
-                        @endif         
-                    </select>    
-                        @if ($errors->has('class_teacher'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('class_teacher') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div> 
-         </div>
+ <div class="col-md-6">       
+        <div class="form-group {{$errors->has('class_teacher') ? ' has-error' : '' }}">
+            <label for="name" class="col-md-4 control-label">CLASS TEACHER</label>
+                <div class="col-md-6">  
+                <select class="form-control {{ $errors->has('class_teacher') ? 'is-invalid' : '' }}" name="class_teacher" >
+                    <option value=""  selected>Select Teacher</option>
+                    @if(count($teachers)>0)
+                        @foreach($teachers as $teacher)
+                        <option value="{{$teacher->id_no}}">{{strtoupper($teacher->name)}}</option> @endforeach
+                    @else
+                    {{ _('No CLASSES Yet') }} 
+                    @endif         
+                </select>    
+                    @if ($errors->has('class_teacher'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('class_teacher') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div> 
+        </div>
     </div> <br>
         <!-- capacity -->
     <label for="name" class="col-md-4 control-label">CLASS CAPACITY</label> 

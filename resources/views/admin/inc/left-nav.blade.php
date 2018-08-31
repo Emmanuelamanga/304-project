@@ -7,10 +7,10 @@
       <ul class="dropdown-menu">
         <li><a href="{{route('teachers.create')}}">ADD</a></li>
         <li><a href="{{route('teachers.index')}}">VIEW</a></li>
-        <li><a href="{{route('teachers_subjects.index')}}">TEACHERS SUBJECTS</a></li>
         <!-- <li><a href="{{route('subjects.index')}}">SUBJECT</a></li> -->
         <li class="divider"></li>
-        <li><a href="#">PERFORMANCE CURVE</a></li>
+        <!-- <li><a href="#">PERFORMANCE CURVE</a></li> -->
+        <li><a href="{{route('teachers_subjects.index')}}">TEACHERS SUBJECTS</a></li>
       </ul>
     </div>
   </li>

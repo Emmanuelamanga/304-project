@@ -66,7 +66,7 @@ class TeachersController extends Controller
             // $teacher->save();
          
 
-        return redirect('admin/home')
+        return redirect()->route('teachers.index')
                 ->with('success','Teacher Record Added');
     }
 
@@ -121,8 +121,8 @@ class TeachersController extends Controller
                                 
                             ]);
 
-                            return view('admin.pages.view-teachers')
-                            ->with('success')
+            return redirect()->route('teachers.index')
+                            ->with('success','Teacher\'s Record Updated')
                             ->with('teachers', App\Teacher::orderBy('created_at', 'DESC')->get());
 
     }

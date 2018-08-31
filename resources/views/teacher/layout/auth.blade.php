@@ -63,7 +63,7 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">REPORT CARDS
                     <span class="caret"></span></a>
                     <ul class="dropdown-menu">      
-                        <li ><a href="{{route('reports.index')}}">UNPROCESSED REPORT CARDS</a></li>
+                        <li ><a href="{{route('pdf')}}">PROCESS REPORT CARDS</a></li>
                         <li class="divider"></li>
                         <li ><a href="#">***</a></li>                                                      
                     </ul>
