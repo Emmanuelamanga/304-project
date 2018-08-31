@@ -17,8 +17,8 @@
 @section('window')
 
  @if(count($teachers)>0)
- <h4>ALL Teachers</h4>
-<table  class="table table-striped table-bordered table-sm" cellspacing="0" width="100%"
+ <h4 class='text-center'>ALL TEACHERS</h4>
+<table  class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%"
 data-pagination="true" data-search="true" data-toggle="table">
     <thead class="thead-light">
         <tr>
@@ -34,16 +34,17 @@ data-pagination="true" data-search="true" data-toggle="table">
         <th class="th-sm">TELEPHONE
             <i class="fa fa-sort float-right" aria-hidden="true"></i>
         </th>
-        <th class="th-sm">ALT TEL
+        </th>
+        <th class="th-sm">EDIT
             <i class="fa fa-sort float-right" aria-hidden="true"></i>
         </th>
-        <th class="th-sm">ROLE
+        <th class="th-sm">DELETE
             <i class="fa fa-sort float-right" aria-hidden="true"></i>
         </th>
-        
+       
         </tr>
     </thead>
-    <tbody>
+    <tbody class="">
         
     @foreach($teachers as $teacher)
         <tr>
@@ -51,8 +52,14 @@ data-pagination="true" data-search="true" data-toggle="table">
         <td>{{$teacher->id_no}}</td>
         <td>{{$teacher->email}}</td>
         <td>{{$teacher->tel}}</td>
-        <td>{{$teacher->alt_tel}}</td>
-        <td>{{$teacher->role}}</td>
+       
+
+        <td><a href="teachers/{{$teacher->id}}/edit" class='btn btn-sm btn-info'> <i class='glyphicon glyphicon-eye-open'></i> EDIT</a></td>
+        <td>
+        <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#myModal"> <i class='glyphicon glyphicon-remove'></i> DELETE</button>
+        
+        
+        </td>
     </tr>
     @endforeach
             
@@ -67,11 +74,12 @@ data-pagination="true" data-search="true" data-toggle="table">
         </th>
         <th>TEL</i>
         </th>
-        <th>ALT TEL</i>
         </th>
+        <th>EDIT</i>
         </th>
-        <th>ROLE</i>
+        <th>DELETE</i>
         </th>
+       
         
         </tr>
     </tfoot>
@@ -81,6 +89,40 @@ data-pagination="true" data-search="true" data-toggle="table">
   <strong>No Teachers Records !</strong> 
 </div>
 @endif
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header alert-danger">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body test-uppercase">
+       PLEASE CONFIRM THAT YOU WANT TO <b>PERMANENTLY DELETE {{strtoupper($teacher->name)}}'S</b>  RECORDS ...!!
+      </div>
+      <div class="modal-footer">
+      <table class="pull-right">
+          <tr>
+              <td>  <form action="{{route('teachers.destroy',$teacher->id)}}" method="post">
+                        {{ csrf_field() }}
+                        {{ method_field('delete') }}
+                        <button class="btn btn-danger btn-sm" type="submit"> <i class='glyphicon glyphicon-remove'></i> DELETE</button>
+                    </form> 
+                </td>
+                
+                <td>&nbsp;&nbsp;
+                    <button type="button" class="btn btn-default float-right" data-dismiss="modal">Close</button>
+                </td>
+          </tr>
+      </table>
+    
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- //modal -->
 
 @endsection
 

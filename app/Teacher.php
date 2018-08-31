@@ -6,6 +6,8 @@ use App\Notifications\TeacherResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use Illuminate\Database\Eloquent\Model;
+
 class Teacher extends Authenticatable
 {
     use Notifiable;
@@ -42,5 +44,10 @@ class Teacher extends Authenticatable
     public function subject(){
 
         $this->hasMany('App\Subject');
+    }
+
+    public function room(){
+
+        $this->hasOne('App\Room');
     }
 }

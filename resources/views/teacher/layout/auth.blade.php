@@ -46,19 +46,29 @@
                 <!-- Left Side Of Navbar --> 
                 
                   
-                <ul class="nav navbar-nav">
-             
-                                       
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">RESULTS
-                <span class="caret"></span></a>
-                <ul class="dropdown-menu">      
-                <li ><a href="{{route('results.create')}}">ADD</a></li>
-                <li ><a href="{{route('results.index')}}">VIEW</a></li>                                       
-                </ul>
-            </li>        
-                   <li><a href="{{route('result_chart.index')}}">PERFORMANCE</a></li>         
-                </ul>  
+            <ul class="nav navbar-nav">                           
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">RESULTS
+                    <span class="caret"></span></a>
+                    <ul class="dropdown-menu">      
+                        <li ><a href="{{route('results.create')}}">ADD RESULTS</a></li>
+                        <li class="divider"></li>
+                        <li ><a href="{{route('results.index')}}">VIEW RESULTS</a></li>                                                      
+                    </ul>
+                </li>        
+                <li>
+                    <a href="{{route('result_chart.index')}}">PERFORMANCE</a>
+                </li>         
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">REPORT CARDS
+                    <span class="caret"></span></a>
+                    <ul class="dropdown-menu">      
+                        <li ><a href="{{route('reports.index')}}">UNPROCESSED REPORT CARDS</a></li>
+                        <li class="divider"></li>
+                        <li ><a href="#">***</a></li>                                                      
+                    </ul>
+                </li> 
+            </ul>  
                 @if (Route::has('login'))  @endif
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
@@ -93,17 +103,22 @@
             </div>
         </div>
     </nav>
-<div class="container">
-    @yield('content')
+<div class="container-fluid">
+
+         @yield('create-nav')
+ 
+        @yield('content')
+
 </div>
    
 
     <!-- Scripts -->
     <!-- <script src="/js/app.js"></script> -->
             <!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<script src="{{asset('js/jquery-3.3.1.min.js')}}"> </script>
 <!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="{{asset('bootstrap3.3.7/js/bootstrap.min.js')}}"> </script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 </body>
 </html>

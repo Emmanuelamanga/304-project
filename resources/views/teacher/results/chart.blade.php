@@ -23,22 +23,26 @@ $finances->addStringColumn('Subjects')->addNumberColumn('Average');
 
 // check if columns are set
 if (count($db_columns)>0) {
+
 // loop through the column names 
     foreach ($db_columns as  $key => $value) {
         //filter out unrequired  column names fron the column array
-        if ($key != 0 && $key != 1 && ($key != count($db_columns)-1) && ($key != (count($db_columns)-2)) && ($key != (count($db_columns)-3)) ) {
+        if ($key != 0 && $key != 1 && ($key != count($db_columns)-1) && ($key != (count($db_columns)-2))  ) {
 
             // find average of marks by columns 
          $query = DB::table('results')->select($value)->avg($value);
+         
         
             // insert column names and marks to chart
-         $finances->addRow([$value, $query]);
+         $finances->addRow([strtoupper($value), $query]);
         }
         // increament the key of the column array
         $key++;
     }
     
 
+}else{
+    echo '<div class="alert alert-warning">No Subjects Added To The Database</div>';
 }
     
 
@@ -62,18 +66,11 @@ $lava->ColumnChart('Finances', $finances,
 @extends('teacher.layout.auth')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading text-center h4 text-uppercase">Class Subjects Performance</div>
-                <div class="panel-body">
-                <div  id="perf_div"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div><?= $lava->render('ColumnChart', 'Finances', 'perf_div') ?>
+
+<div class=" text-center h4 text-uppercase">Class Subjects Performance</div>
+  
+<div  id="perf_div"></div>
+<?= $lava->render('ColumnChart', 'Finances', 'perf_div') ?>
 @endsection
 
 

@@ -15,11 +15,13 @@ class AddColumnsToTable extends Migration
     {
         Schema::table('results', function (Blueprint $table) {
            
-            $table->string('updated_by');
-            $table->string('created_by');
+            // $table->string('updated_by');
+            // $table->string('created_by');
             
 
         });
+
+  
     }
 
     /**
@@ -31,8 +33,8 @@ class AddColumnsToTable extends Migration
     {
         Schema::table('results', function (Blueprint $table) {
            
-            $table->dropColumn('updated_by');
-            $table->dropColumn('created_by');
+            // $table->dropColumn('updated_by');
+            // $table->dropColumn('created_by');
         });
     }
 }

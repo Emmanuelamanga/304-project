@@ -8,7 +8,7 @@
         <li><a href="{{route('teachers.create')}}">ADD</a></li>
         <li><a href="{{route('teachers.index')}}">VIEW</a></li>
         <li><a href="{{route('teachers_subjects.index')}}">TEACHERS SUBJECTS</a></li>
-        <li><a href="{{route('subjects.index')}}">SUBJECT</a></li>
+        <!-- <li><a href="{{route('subjects.index')}}">SUBJECT</a></li> -->
         <li class="divider"></li>
         <li><a href="#">PERFORMANCE CURVE</a></li>
       </ul>
@@ -38,10 +38,10 @@
         <li><a href="{{route('rooms.create')}}">ADD</a></li>
         <li><a href="{{route('rooms.index')}}">VIEW</a></li>
         <li class="divider"></li>
-        <li><a href="#">VIEW</a></li>
-      </ul>
+          </ul>
     </div>
   </li>
+  
   <!-- teachers subjects
 <li class="nav-item">
   <div class="dropdown ">

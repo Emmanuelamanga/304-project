@@ -149,6 +149,9 @@ return [
 
         Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
 
+        // pdf provider
+        Barryvdh\DomPDF\ServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
@@ -217,6 +220,8 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
 
         'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class,
+
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
         // Khill\Lavacharts\Laravel\LavachartsFacade::class
 

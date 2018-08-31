@@ -39,8 +39,16 @@ Route::group(['prefix'=>'admin'],function(){
   Route::resource('result_chart','ResultChartController');
 
 Route::group(['prefix'=>'teacher'],function(){
-    Route::resource('results','ResultsController');
- });
+    Route::resource('reports','ReportsController');
+    Route::resource('results','ResultsController');    
+ });  
+
+ 
+	
+Route::get('/users', 'PdfController@index');
+Route::get('/users/report/{view_type}', 'PdfController@report');
+ 
+ 
 
 
 Route::group(['prefix' => 'admin'], function () {

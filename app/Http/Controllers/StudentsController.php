@@ -71,15 +71,16 @@ class StudentsController extends Controller
                     'room' => $request->input('student_class'),
                     'adm_no'=> $request->input('admission_number'),
                     'password'=> bcrypt($request->input('password')),
-                    'id_parent'=> $request->input('parent_id') 
+                    'id_parent'=> $request->input('parent_id'),
+                    'results' => 0
                     ]
                 );
 
-         DB::table('results')->insert(
-                    [
-                    'adm_no'=> $request->input('admission_number')
-                    ]
-                );
+        //  DB::table('results')->insert(
+        //             [
+        //             'adm_no'=> $request->input('admission_number')
+        //             ]
+        //         );
                 
                 return redirect('admin/home')
                 ->with('success','Student Record Added');
@@ -105,7 +106,11 @@ class StudentsController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        // $std = App\Student::find($student);
+        $std = Student::where('id',$student)->get();
+    
+        return view('admin.pages.students.edit-student')
+                ->with('student',$std);
     }
 
     /**

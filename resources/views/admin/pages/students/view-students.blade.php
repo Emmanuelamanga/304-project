@@ -22,7 +22,7 @@
 	<table id="myTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
   <thead>
     <tr>
-      <th class="th-sm">Name
+      <th class="th-sm">NAME
         <i class="fa fa-sort float-right" aria-hidden="true"></i>
       </th>
       <th class="th-sm">ADM NO
@@ -58,7 +58,7 @@
 		      <td>{{$student->email}}</td>
 		      <td>{{$student->hobby}}</td>
 		      <td>{{$student->created_at}}</td>
-          <td> <a href="students/{{$student->id}}/edit" class="btn btn-sm btn-default" >EDIT</a></td>
+          <td> <a href="students/{{$student->id}}/edit" class="btn btn-sm btn-info" > <i class='glyphicon glyphicon-eye-open'></i> EDIT</a></td>
 		    </tr>
     	@endforeach
     	

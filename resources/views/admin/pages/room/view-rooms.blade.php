@@ -40,8 +40,8 @@
             <tfoot>
                <tr> 
                 <td colspan="2"></td>
-                <td><a href="#" class="btn btn-info">Edit</a></td>
-                <td><a href="#" class="btn btn-danger">Delete</a> </td>
+                <td><a href="rooms/{{$room->id}}/edit" class="btn btn-info my-4 btn-block">EDIT</a></td>
+                <td><a href="#" class="btn btn-danger">DELETE</a> </td>
                </tr> 
             </tfoot>
             </table>

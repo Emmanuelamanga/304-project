@@ -89,7 +89,9 @@ class TeachersController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $teacher = Teacher::find($id);
+        return view('admin.pages.edit-teacher', compact('teacher',$teacher));
     }
 
     /**
@@ -101,7 +103,28 @@ class TeachersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,
+            [
+            'name' => 'required|max:255',
+            'tel' => 'required|max:255',
+            'id_no' => 'required|max:255',
+            'email' => 'required|email|max:255',
+             ]);
+
+             DB::table('teachers')->where('id', $id)
+                        ->update(
+                            [
+                                'name'=>$request->name,
+                                'tel'=>$request->tel,
+                                'id_no'=>$request->id_no,
+                                'email'=>$request->email,
+                                
+                            ]);
+
+                            return view('admin.pages.view-teachers')
+                            ->with('success')
+                            ->with('teachers', App\Teacher::orderBy('created_at', 'DESC')->get());
+
     }
 
     /**
@@ -112,7 +135,8 @@ class TeachersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('teachers')->where('id', $id)->delete();
+        return redirect()->back()->with('success','record deleted');
     }
 
         

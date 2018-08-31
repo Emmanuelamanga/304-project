@@ -76,7 +76,11 @@ class RoomsController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        return view('admin.pages.room.edit-room')
+            ->with('room', Room::find($id))
+            ->with('teachers', Teacher::all())            
+            ->with('rooms', Room::all());
     }
 
     /**

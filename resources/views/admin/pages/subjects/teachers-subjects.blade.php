@@ -16,8 +16,6 @@
         </ul>
     </div>
 @endif
-
-
         <div class="panel panel-default">
             <div class="panel-heading clearfix h3">TEACHERS SUBJECTS
             <span class="pull-right "> <a href="myModal" class="btn btn-info" data-toggle="modal" data-target="#myModal"> ADD SUBJECT TEACHER</a> </span>
@@ -92,12 +90,9 @@
                                </tr>
                                 @endforeach 
                             @else
-
                             @endif
-                                
                             </tbody>
                     </table>                   
-            
             </div>
             <div class="modal-footer"> 
             <input type="submit" class="btn btn-success" value="ASSIGN SUBJECTS">
