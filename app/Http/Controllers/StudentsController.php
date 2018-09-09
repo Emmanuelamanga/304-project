@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Student;
 use App\Room;
+use App\studentParent;
 use App;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -41,8 +42,9 @@ class StudentsController extends Controller
     public function create()
     {
         
-        return view('admin.pages.students.register-student')
-                    ->with('rooms', App\Room::all());
+    return view('admin.pages.students.register-student')
+                    ->with('rooms', App\Room::all())
+                    ->with('studentParent', studentParent::all());
     }
 
     /**
@@ -76,12 +78,6 @@ class StudentsController extends Controller
                     'results' => 0
                     ]
                 );
-
-        //  DB::table('results')->insert(
-        //             [
-        //             'adm_no'=> $request->input('admission_number')
-        //             ]
-        //         );
                 
             return redirect()->route('students.index')
                 ->with('success','Student Record Added');
@@ -107,15 +103,13 @@ class StudentsController extends Controller
      */
     public function edit(Student $student)
     {
-        $std = App\Student::findOrFail($student);
-        // $std = Student::where('id', $student)->get();
-
-        // $std = DB::statement('SELECT * FROM students WHERE id=?',[$student]);
-        // $std = DB::table('students')->where('id', $student )->first();
-    
-        return view('admin.pages.students.edit-student')
-                ->with('student', $std)
-                ->with('rooms', App\Room::all());
+        $std = Student::find($student);
+ 
+        return view('admin.pages.students.edit-student', 
+                compact('student', $std))             
+                ->with('rooms', App\Room::all())
+                // ->with('student_parent', studentParent::where('id_no', $std->id_parent)->get())
+                ->with('parents', studentParent::all());
     }
 
     /**
@@ -127,7 +121,7 @@ class StudentsController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        
     }
 
     /**

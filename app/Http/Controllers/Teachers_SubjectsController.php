@@ -21,8 +21,10 @@ class Teachers_SubjectsController extends Controller
     public function index() 
     {
 
-         $subjects = App\Subject::all();
+        $subjects = App\Subject::all();
         $teachers =App\Teacher::all();
+
+        $rooms =App\Room::all();
 
         // $teachers_subjets = DB::table('teacher_subjects')
         //                     ->join('teachers', 'teacher_subjects.id_no', '=', 'teachers.id_no')
@@ -40,6 +42,7 @@ class Teachers_SubjectsController extends Controller
         //  $subject_list = explode(', ',   $refs);
 
         return view('admin/pages/subjects/teachers-subjects')
+                ->with('rooms',$rooms)
                 ->with('teachers_subjects',$teachers_subjects)
                 ->with('subjects',$subjects)
                 // ->with('subject_list',$subject_list)
@@ -52,8 +55,33 @@ class Teachers_SubjectsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
+    {  
+        $subjects = App\Subject::all();
+        $teachers =App\Teacher::all();
+        $rooms =App\Room::all();
+
+        // return view('admin/pages/teacher-subject/assign-subject')
+        //         ->with('subjects',$subjects)
+        //         ->with('rooms',$rooms)
+        //         ->with('teachers', $teachers); 
+    }
+    public function setRoom(Request $request)
     {
-        //
+         
+         $this->validate($request, 
+         [
+             'room'=>'required',
+         ]);
+
+
+         $get_teachers = DB::table('teachers')
+                        ->select('name','id_no')
+                        ->where('room', $request->room)
+                        ->get();
+
+         return  view('admin/pages/subjects/add-teacher-subject')
+                    ->with('teachers', $get_teachers);
+                    
     }
 
     /**
@@ -72,8 +100,8 @@ class Teachers_SubjectsController extends Controller
         ]);
 
 
-        //inser to DB 
-        $subject =new App\Teacher_subject;
+            //inser to DB 
+            $subject =new App\Teacher_subject;
 
             $subject_ids = count($request->input('subject_id')) ? $request->input('subject_id') : array();
             

@@ -40,6 +40,10 @@
                                 <td> <a href="#" class="btn btn-info btn-sm">EDIT</a></td>
                             </tr>
                         @endforeach
+                    @else
+                        <tr>
+                            <td> <div class="alert alert-warning">NO Teachers Assigned Subjects</div> </td>
+                        </tr>
                     @endif
                     </tbody>
                 
@@ -48,54 +52,40 @@
         </div>  
         <!-- Modal -->
         <div id="myModal" class="modal fade" role="dialog">
-        <form class="form-horizontal" role="form" method="POST" action="{{ route('teachers_subjects.store') }}">
+        <form class="form-horizontal" role="form" method="POST" action="{{ route('setRoom') }}">
             @csrf
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title text-center">TEACHER SUBJECT FORM</h4>
+                <h4 class="modal-title text-center">SELECT ROOM</h4>
             </div>
             <div class="modal-body">
-                <!-- select class teacher -->
-                <div class="form-group {{$errors->has('id_no') ? ' has-error' : '' }}">
-                    <label for="name" class="col-md-4 control-label">SUBJECT TEACHER</label>
+                <!-- select Class -->
+                <div class="form-group {{$errors->has('room') ? ' has-error' : '' }}">
+                    <label for="name" class="col-md-4 control-label">SELECT ROOM</label>
                         <div class="col-md-6">  
-                        <select class="form-control {{ $errors->has('id_no') ? 'is-invalid' : '' }}" name="id_no"  value="{{ old('id_no') }}">
-                            <option value="" disabled selected>Select Subject Teacher</option>
-                            @if(count($teachers)>0)
-                                @foreach($teachers as $teacher)
-                                <option value="{{$teacher->id_no}}">{{strtoupper($teacher->name)}}</option> 
+                        <select class="form-control {{ $errors->has('room') ? 'is-invalid' : '' }}" name="room"  value="{{ old('room') }}">
+                            <option value="" disabled selected>Select Class</option>
+                            @if(count($rooms)>0)
+                                @foreach($rooms as $room)
+                                <option value="{{$room->room_ref}}">{{strtoupper($room->class_name)}}</option> 
                                 @endforeach
                             @else
                             {{ _('No CLASSES Yet') }} 
                             @endif         
                         </select>    
-                            @if ($errors->has('id_no'))
+                            @if ($errors->has('room'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('id_no') }}</strong>
+                                    <strong>{{ $errors->first('room') }}</strong>
                                 </span>
                             @endif
                         </div>
                     </div>
-                    <!-- select subject -->                        
-                    <table class="table">
-                        <tbody>
-                            @if(count($subjects)>0)
-                                @foreach($subjects as $subject)
-                                <tr>
-                                    <td>{{$subject->subject_name}}</td>
-                                    <td> <input type="checkbox" value="{{$subject->ref_no}}" name="subject_id[]" id="subject_id"> </td>
-                               </tr>
-                                @endforeach 
-                            @else
-                            @endif
-                            </tbody>
-                    </table>                   
             </div>
             <div class="modal-footer"> 
-            <input type="submit" class="btn btn-success" value="ASSIGN SUBJECTS">
+            <input type="submit" class="btn btn-success" value="SET">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
             </form>

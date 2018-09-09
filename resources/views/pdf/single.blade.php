@@ -215,7 +215,6 @@
             </tfoot>
         </table>
         <br>
-        @include('results.graph')
         <hr>
         <footer>@ {{ @date('Y') }} ALL RIGHT RESERVED KINGS COLLEGE SCHOOL</footer>
     </body>

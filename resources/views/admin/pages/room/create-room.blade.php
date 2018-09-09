@@ -44,7 +44,6 @@
             </div>
         </div>
         </div>
-
         <br>
         <!-- capacity -->
         <div class="row ">
@@ -63,14 +62,14 @@
                     <!-- select class -->
             <div class="form-group {{$errors->has('class_teacher') ? ' has-error' : '' }}">
                 <label for="name" class="col-md-4 control-label">CLASS TEACHER</label>
-                    <div class="col-md-6">  
+                    <div class="col-md-8">  
                     <select class="form-control {{ $errors->has('class_teacher') ? 'is-invalid' : '' }}" name="class_teacher"  value="{{ old('class_teacher') }}">
-                        <option value="" disabled selected>Select Class</option>
+                        <option value="" disabled selected>Select Class Teacher</option>
                         @if(count($teachers)>0)
                             @foreach($teachers as $teacher)
-                            <option value="{{$teacher->id_no}}">{{strtoupper($teacher->name)}}</option> @endforeach
+                            <option value="{{$teacher->id_no}}">{{$teacher->id_no}} <strong>:</strong> {{strtoupper($teacher->name)}}</option> @endforeach
                         @else
-                        {{ _('No CLASSES Yet') }} 
+                            <option selected disabled> {{ _('No CLASS TEACHERS') }}</option> 
                         @endif         
                     </select>    
                         @if ($errors->has('class_teacher'))
@@ -84,7 +83,7 @@
     </div>
       <br>
           <!-- Submit  button -->
-        <button class="btn btn-info my-2 " type="submit">ADD CLASS</button>
+        <button class="btn btn-primary my-2 " type="submit"> <i class="glyphicon glyphicon-plus"></i> ADD CLASS</button>
 
   </form>
  </div>

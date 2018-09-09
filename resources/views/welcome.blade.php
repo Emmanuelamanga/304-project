@@ -28,6 +28,18 @@
 	.panel{
 		/* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ61OUBqOLHI6t0BYjhaoL3ZCL8bf_MMTFD-BNMN7cLKbxDLWN2eg'); */
 	}
+	.pan .list-group .list-group-item{
+		margin:auto;
+		width:30%;
+		border:1px solid grey;
+		border-radius: 10%;
+	}
+	.pan .list-group .list-group-item:hover{
+		color:blue;
+		background-color:  #e6e6ff;
+	}
+	
+	
     </style>
     </head>
     <body>
@@ -38,22 +50,32 @@
 		<div class="text-center position-ref full-height">
 			<div class="content">
 					<hr>
-				<div id="clock" class="label label-primary " data-toggle="tooltip" data-placement="top" title="Current Time"></div>
+				<div id="clock" class="label label-primary" data-toggle="tooltip" data-placement="top" title="Current Time"></div>
 				<div id="date" class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Today's Date">{{ _(date("Y-m-d"))}}</div>
 				<div id="day" class="badge badge-pill light-blue" data-toggle="tooltip" title="Week Day">{{_(date("l"))}}</div>
 		
 					<hr>
 					<div class="panel panel-default">
+					<div class="panel-header h1 text-center">
+							SCHOOL MANGAGEMENT SYSTEM
+					</div>
 						<div class="panel-body">
-							<button data-toggle="collapse" data-target="#demo"  class="btn btn-info "><span class="glyphicon glyphicon-log-in"></span> LOGIN</button>
+							<!-- <button data-toggle="collapse" data-target="#demo"  class="btn btn-info "><span class="glyphicon glyphicon-log-in"></span> LOGIN</button>
 
-							<div id="demo" class="collapse">
+							<div id="demo" class="collapse"> -->
+							<div class="pan clearfx">
+								<div class="top" style="color:#ff9933;font-size:18px">
+									Please select your log in level.
+								</div><br>
 								<div class="list-group">
-									<a class="list-group-item" href="{{ route('admin_login') }}">ADMIN</a>
-									<a class="list-group-item" href="{{ route('teacher_login') }}">TEACHER</a>
-									<a class="list-group-item" href="#">CLASS TEACHER</a>	
-								</div>
+										<a class="list-group-item " href="{{ route('admin_login') }}">ADMIN</a>
+										<a class="list-group-item" href="{{ route('login') }}"> TEACHER</a>
+										<a class="list-group-item" href="#">CLASS TEACHER</a>	
+										<ul class="nav nav-pills nav-stacked">
+									</div>
 							</div>
+								
+							<!-- </div> -->
 						</div>
 					</div>
 		
@@ -69,11 +91,14 @@
 
         <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+<!-- <script src="{{asset('js/jquery.min.js')}}"></script> -->
 <!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- <link rel="stylesheet" href="{{asset('bootstrap3.3.7/js/bootstrap.min.js')}}">
-<link rel="stylesheet" href="{{asset('bootstrap3.3.7/js/bootstrap.js')}}"> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+<!-- <script src="{{asset('bootstrap3.3.7/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('bootstrap3.3.7/js/bootstrap.js')}}"></script> -->
+<script src="{{asset('js/jquery.min.js')}}"> </script>
+<script src="{{asset('bootstrap3.3.7/js/bootstrap.min.js')}}"> </script>
+
 
 
 <script>

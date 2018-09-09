@@ -21,6 +21,18 @@
         .navbar{
             background-color: #e3f2fd;
         }
+        body{
+            background-image: url('{{asset('storage/adminbg.jpg')}}');
+        }
+        .nav{
+            height:90%;
+        }
+        .window{
+            /* background-image: url('{{asset('storage/adminhome.jpg')}}'); */
+        }
+        ul {
+            list-style-type: none;
+        }
    </style>
    @yield('styles')
     <!-- Scripts -->
@@ -100,7 +112,7 @@
 
             </div>
 
-            <div class="col-sm-9">
+            <div class="window col-sm-9">
             
                 @yield('window')
             
@@ -116,7 +128,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
 <!-- jQuery library -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-<script src="{{asset('js/jquery-3.3.1.min.js')}}"> </script>
+<script src="{{asset('js/jquery.min.js')}}"> </script>
 <script src="{{asset('bootstrap3.3.7/js/bootstrap.min.js')}}"> </script>
 <!-- Latest compiled JavaScript -->
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->

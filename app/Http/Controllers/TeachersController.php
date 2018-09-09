@@ -8,6 +8,18 @@ use Illuminate\Support\Facades\DB;
 
 class TeachersController extends Controller
 {
+
+
+        /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //  $this->middleware(['auth:teacher']);
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -49,7 +61,7 @@ class TeachersController extends Controller
             'password' => 'required|min:6|confirmed',
              ]);
 
-    DB::table('teachers')->insert(
+            DB::table('teachers')->insert(
             [
             'name' => $request->input('name'), 
             'email' => $request->input('email'),
@@ -58,12 +70,6 @@ class TeachersController extends Controller
             'password' => bcrypt($request->input('password'))
             ]
         );
-
- // $teacher = new Teacher;
-
-            // $teacher-> = $request->input('');
-
-            // $teacher->save();
          
 
         return redirect()->route('teachers.index')
@@ -89,7 +95,6 @@ class TeachersController extends Controller
      */
     public function edit($id)
     {
-
         $teacher = Teacher::find($id);
         return view('admin.pages.edit-teacher', compact('teacher',$teacher));
     }
@@ -109,6 +114,7 @@ class TeachersController extends Controller
             'tel' => 'required|max:255',
             'id_no' => 'required|max:255',
             'email' => 'required|email|max:255',
+            't_role' => 'required|max:255'
              ]);
 
              DB::table('teachers')->where('id', $id)
@@ -118,6 +124,7 @@ class TeachersController extends Controller
                                 'tel'=>$request->tel,
                                 'id_no'=>$request->id_no,
                                 'email'=>$request->email,
+                                'role'=>$request->t_role
                                 
                             ]);
 

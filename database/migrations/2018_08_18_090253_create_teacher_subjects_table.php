@@ -17,6 +17,7 @@ class CreateTeacherSubjectsTable extends Migration
             $table->increments('id');
             $table->string('ref_no');
             $table->string('id_no');
+            $table->string('room_no');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

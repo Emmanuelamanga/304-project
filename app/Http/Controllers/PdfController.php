@@ -12,6 +12,16 @@ use App\Teacher;
 class PdfController extends Controller
 
     {
+
+           /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:teacher');
+    }
  
         public function index(Request $request) {
 

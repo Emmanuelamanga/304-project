@@ -12,9 +12,11 @@ class Handler extends ExceptionHandler
      *
      * @var array
      */
+
     protected $dontReport = [
         //
     ];
+ 
 
     /**
      * A list of the inputs that are never flashed for validation exceptions.
@@ -37,11 +39,11 @@ class Handler extends ExceptionHandler
         parent::report($exception);
     }
 
-    /**
-     * Render an exception into an HTTP response.
+  /**
+     * Convert an authentication exception into an unauthenticated response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param  \Illuminate\Auth\AuthenticationException  $exception
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)

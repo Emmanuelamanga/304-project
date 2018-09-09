@@ -5,6 +5,7 @@
     @endsection
 
     @section('window')
+    @include('admin.inc.messages')
         <div class="panel panel-default">
             <div class="panel-heading clearfix text-center h3"> CREATE SUBJECTS
             <span class="pull-right "></span>

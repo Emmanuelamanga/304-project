@@ -19,7 +19,7 @@ class RoomsController extends Controller
     public function index()
     {
         return view('admin.pages.room.view-rooms')
-            ->with('rooms', App\Room::all());
+            ->with('rooms', Room::all());
     }
 
     /**
@@ -29,8 +29,14 @@ class RoomsController extends Controller
      */
     public function create()
     {
+        // $teachers = Teacher::where('role','Class Teacher')->get();
+
+        // left join tables to get the values
+      
+        $teachers = Teacher::where('defined_role', 0)->get();
+
         return view('admin.pages.room.create-room')
-        ->with('teachers', App\Teacher::all());
+        ->with('teachers', $teachers);
     }
 
     /**
@@ -49,14 +55,20 @@ class RoomsController extends Controller
             ]);
     
             $room = new Room;
-    
-            $room->ref_no = $request->input('class_referance_number');
-            $room->class_name = $request->input('class_name');
-            $room->class_capacity = $request->input('class_capacity');
-            $room->class_teacher = $request->input('class_teacher');
+                $room->room_ref = $request->input('class_referance_number');
+                $room->class_name = $request->input('class_name');
+                $room->class_capacity = $request->input('class_capacity');
+                $room->class_teacher = $request->input('class_teacher');
             $room->save();
-            
-            return redirect('admin/home')
+
+            DB::table('teachers')
+                    ->where('id_no',  $request->input('class_teacher'))
+                    ->update(
+                        [
+                            'role' => 'Class Teacher',
+                            'defined_role' => 1                       
+                        ]); 
+            return redirect()->route('rooms.index')
                         ->with('success','Class Created');
     }
 
@@ -81,8 +93,9 @@ class RoomsController extends Controller
     {
 
         return view('admin.pages.room.edit-room')
-            ->with('room', Room::find($id))
-            ->with('teachers', Teacher::all())            
+            ->with('room', $room = Room::find($id))
+            ->with('teachers',  Teacher::where('defined_role', 0)->get()) 
+            ->with('current_teacher',Teacher::where('id_no',$room->class_teacher)->get())           
             ->with('roomx', Room::all());
     }
 
@@ -105,7 +118,7 @@ class RoomsController extends Controller
 
             DB::table('rooms')->where('id', $id)->update(
                     [
-                        'ref_no'=>$request->class_referance_number,
+                        'room_ref'=>$request->class_referance_number,
                         'class_name'=>$request->class_name,
                         'class_capacity'=>$request->class_capacity,
                         'class_teacher'=>$request->class_teacher,
@@ -126,6 +139,6 @@ class RoomsController extends Controller
     public function destroy($id)
     {
         DB::table('rooms')->where('id', $id)->delete();
-        return redirect()->back()->with('success','Class Deleted');
+        return redirect()->route('rooms.index')->with('success','Class Deleted');
     }
 }

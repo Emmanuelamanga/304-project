@@ -35,7 +35,7 @@
                                     @endif
                                 </div>
                             </div>
-    <!-- id number -->
+                <!-- id number -->
                             <div class="form-group{{ $errors->has('id_no') ? ' has-error' : '' }}">
                                 <label for="id_no" class="col-md-4 control-label">ID Number</label>
                                 <div class="col-md-6">
@@ -59,7 +59,7 @@
                                     @endif
                                 </div>
                             </div>
-
+                            <!-- email -->
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
@@ -73,39 +73,28 @@
                                     @endif
                                 </div>
                             </div>
-
-                            <!-- <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password" class="col-md-4 control-label">Password</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" name="password">
-
-                                    @if ($errors->has('password'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('password') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                                <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                                <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
-
-                                    @if ($errors->has('password_confirmation'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div> -->
+                                <!-- role -->
+                             <div class="form-group {{$errors->has('t_role') ? ' has-error' : '' }}">
+                               
+                            <label for="name" class="col-md-4 control-label">ROLE</label>
+                                  <div class="col-md-6">   <small>Current: {{$teacher->role}}</small>
+                                  <select class="form-control {{ $errors->has('t_role') ? 'is-invalid' : '' }}" name="t_role"  value="{{ old('t_role') }}">
+                                        <option value="" disabled selected>Select Role</option>                    
+                                            <option value="Teacher">Teacher</option>
+                                            <option value="Class Teacher">Class Teacher</option>                                               
+                                    </select>    
+                                        @if ($errors->has('t_role'))
+                                            <span class="invalid-feedback" t_role="alert">
+                                                <strong>{{ $errors->first('t_role') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>  
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        update
+                                       <span class="glyphicon glyphicon-refresh"></span>  UPDATE
                                     </button>
                                 </div>
                             </div>

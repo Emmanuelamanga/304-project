@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Result extends Model
 {
     use Notifiable; 
+    protected $guard = "teacher";
 
     protected $table = "results";
 

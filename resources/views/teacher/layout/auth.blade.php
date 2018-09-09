@@ -29,47 +29,69 @@
             <div class="navbar-header">
 
                 <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
+                <button type="button" class="navbar-toggle collapsed" 
+                data-toggle="collapse" data-target="#app-navbar-collapse">
+                    <span class="sr-only">Navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
+                @if (Auth::guest())
+                       <a class="navbar-brand" href="{{ url('/') }}"> 
+                       {{ config('app.name', 'SMS') }} 
+                    @else
+                <a class="navbar-brand" href="{{ url('/teacher/home') }}">
                     {{ config('app.name', 'SMS') }}
+                @endif
                 </a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar --> 
                 
-                  
-            <ul class="nav navbar-nav">                           
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">RESULTS
-                    <span class="caret"></span></a>
-                    <ul class="dropdown-menu">      
-                        <li ><a href="{{route('results.create')}}">ADD RESULTS</a></li>
-                        <li class="divider"></li>
-                        <li ><a href="{{route('results.index')}}">VIEW RESULTS</a></li>                                                      
+         
+                
+                @auth 
+                <ul class="nav navbar-nav">
+                    @if( Auth::user()->role === 'Teacher')                          
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">MARKS
+                            <span class="caret"></span></a>
+                            <ul class="dropdown-menu">      
+                                <li ><a href="{{route('marks.create')}}">ADD MARKS</a></li>
+                                <li class="divider"></li>
+                                <li ><a href="">VIEW Marks</a></li>                                                      
+                            </ul>
+                        </li>
+                    @else
+                    <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">RESULTS
+                            <span class="caret"></span></a>
+                            <ul class="dropdown-menu">      
+                                <li ><a href="{{route('results.create')}}">ADD RESULTS</a></li>
+                                <li class="divider"></li>
+                                <li ><a href="{{route('results.index')}}">VIEW RESULTS</a></li>                                                      
+                            </ul>
+                        </li>  
+                        <li>
+                            <a href="{{route('result_chart.index')}}">PERFORMANCE</a>
+                        </li>         
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">REPORT CARDS
+                            <span class="caret"></span></a>
+                            <ul class="dropdown-menu">      
+                                <li ><a href="{{route('pdf')}}">PROCESS REPORT CARDS</a></li>
+                                <li class="divider"></li>
+                                <li ><a href="#">***</a></li>                                                      
+                            </ul>
+                        </li> 
+                   
+                    @endif 
                     </ul>
-                </li>        
-                <li>
-                    <a href="{{route('result_chart.index')}}">PERFORMANCE</a>
-                </li>         
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">REPORT CARDS
-                    <span class="caret"></span></a>
-                    <ul class="dropdown-menu">      
-                        <li ><a href="{{route('pdf')}}">PROCESS REPORT CARDS</a></li>
-                        <li class="divider"></li>
-                        <li ><a href="#">***</a></li>                                                      
-                    </ul>
-                </li> 
-            </ul>  
-                @if (Route::has('login'))  @endif
+                @endauth  
+               
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
@@ -87,8 +109,7 @@
 
                                 <li>
                                     <a href="{{ url('/teacher/logout') }}"
-                                        onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
+                                       >
                                         Logout
                                     </a>
 
@@ -111,14 +132,13 @@
 
 </div>
    
-
-    <!-- Scripts -->
+<!-- Scripts -->
     <!-- <script src="/js/app.js"></script> -->
-            <!-- jQuery library -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-<script src="{{asset('js/jquery-3.3.1.min.js')}}"> </script>
+<!-- jQuery library -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<script src="{{asset('js/jquery.min.js')}}"> </script>
 <!-- Latest compiled JavaScript -->
-<script src="{{asset('bootstrap3.3.7/js/bootstrap.min.js')}}"> </script>
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <script src="{{asset('bootstrap3.3.7/js/bootstrap.min.js')}}"> </script>
 </body>
 </html>

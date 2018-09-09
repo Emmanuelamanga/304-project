@@ -1,6 +1,6 @@
 @extends('teacher.layout.auth')
-@section('style')
 
+@section('style')
     <style>
     .row{
         margin:auto;
@@ -9,6 +9,7 @@
     </style>
 
 @endsection
+
 @section('content')
    
 <div class="container ">

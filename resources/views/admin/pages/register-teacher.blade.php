@@ -2,7 +2,9 @@
     @section('left-nav')
         @include('admin.inc.left-nav')
     @endsection
+
     @section('window')
+        @include('admin.inc.messages')
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="panel panel-default">
@@ -10,7 +12,7 @@
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('teachers.store') }}">
                             {{ csrf_field() }}
-
+        <!-- name -->
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">Name</label>
                                 <div class="col-md-6">
@@ -22,7 +24,7 @@
                                     @endif
                                 </div>
                             </div>
-    <!-- id number -->
+                <!-- id number -->  
                             <div class="form-group{{ $errors->has('id_no') ? ' has-error' : '' }}">
                                 <label for="id_no" class="col-md-4 control-label">ID Number</label>
                                 <div class="col-md-6">
@@ -46,7 +48,7 @@
                                     @endif
                                 </div>
                             </div>
-
+                        <!-- email -->
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
@@ -60,7 +62,23 @@
                                     @endif
                                 </div>
                             </div>
+                            <!-- role -->
+                            <!-- <div class="form-group {{$errors->has('t_role') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">ROLE</label>
+                                  <div class="col-md-6">  
+                                  <select class="form-control {{ $errors->has('t_role') ? 'is-invalid' : '' }}" name="t_role"  value="{{ old('t_role') }}">
+                                        <option value="" disabled selected>Select Role</option>                    
+                                            <option value="teacher">Teacher</option>                                             
+                                    </select>    
+                                        @if ($errors->has('t_role'))
+                                            <span class="invalid-feedback" t_role="alert">
+                                                <strong>{{ $errors->first('t_role') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>  -->
 
+                            <!-- password -->
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                 <label for="password" class="col-md-4 control-label">Password</label>
 
@@ -92,7 +110,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Register
+                                    <i class="glyphicon glyphicon-pencil"></i>  Register
                                     </button>
                                 </div>
                             </div>

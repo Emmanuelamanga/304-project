@@ -20,8 +20,8 @@ class RedirectIfNotTeacher
 	public function handle($request, Closure $next, $guard = 'teacher')
 	{
 	    if (!Auth::guard($guard)->check()) {
+			
 			$subjects = App\Subject::all();
-
 		
 	        return redirect('teacher/login')->with('subjects', $subjects);
 	    }

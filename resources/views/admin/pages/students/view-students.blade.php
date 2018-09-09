@@ -40,9 +40,9 @@
       <th class="th-sm">EMAIL
         <i class="fa fa-sort float-right" aria-hidden="true"></i>
       </th>
-      <th class="th-sm">HOBBY
+      <!-- <th class="th-sm">HOBBY
         <i class="fa fa-sort float-right" aria-hidden="true"></i>
-      </th>
+      </th> -->
       <th class="th-sm">D.O.R
         <i class="fa fa-sort float-right" aria-hidden="true"></i>
       </th>
@@ -58,11 +58,11 @@
 		      <td>{{$student->name}}</td>
 		      <td>{{$student->adm_no}}</td>
 		      <td>{{$student->dob}}</td>
-		      <td>{{$student->class}}</td>
+		      <td>{{$student->room}}</td>
 		      <td>{{$student->email}}</td>
-		      <td>{{$student->hobby}}</td>
+		      <!-- <td>{{$student->hobby}}</td> -->
 		      <td>{{$student->created_at}}</td>
-          <td> <a href="students/{{$student->id}}/edit" class="btn btn-sm btn-info" > <i class='glyphicon glyphicon-eye-open'></i> EDIT</a></td>
+          <td> <a href="students/{{$student->id}}/edit" class="btn btn-sm btn-info" > <i class='glyphicon glyphicon-edit'></i>  EDIT</a></td>
 		    </tr>
     	@endforeach
     	
@@ -82,8 +82,8 @@
       <th>EMAIL</i>
       </th>
        </th>
-      <th>HOBBY</i>
-      </th>
+      <!-- <th>HOBBY</i>
+      </th> -->
       <th>D.O.R</i>
       </th>
       <th >EDIT

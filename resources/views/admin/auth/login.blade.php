@@ -1,15 +1,13 @@
 @extends('admin.layout.auth')
 
 @section('content')
-<div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+            <div class="panel panel-default">            
+                <div class="panel-heading text-center"><img src="{{asset('storage/adminlogin.jpg')}}" alt="admin img"></div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/login') }}">
                         {{ csrf_field() }}
-
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
@@ -63,5 +61,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection

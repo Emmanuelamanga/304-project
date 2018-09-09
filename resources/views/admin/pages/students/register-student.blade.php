@@ -7,7 +7,7 @@
 @section('window')
 
             <div class="panel panel-default">
-                <div class="panel-heading">REGISTER A NEW STUDENT</div>
+                <div class="panel-heading h3 text-center">REGISTER A NEW STUDENT</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{url('admin/students')}}">
                         {{ csrf_field() }}
@@ -59,7 +59,7 @@
                                     </div>
                                 </div>        
                          <!-- Parents id number -->
-                         <div class="form-group{{ $errors->has('parent_id') ? ' has-error' : '' }}">
+                         <!-- <div class="form-group{{ $errors->has('parent_id') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">Parent ID No.</label>
                             <div class="col-md-6">
                                 <input  type="text" id="search" class="form-control{{ $errors->has('parent_id') ? ' is-invalid' : '' }}" name="parent_id" value="{{ old('parent_id') }}" placeholder="Parent's National ID Number">
@@ -69,7 +69,27 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>   
+                        </div>    -->
+                        <div class="form-group {{$errors->has('parent_id') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">Parent/Guardian </label>
+                                <div class="col-md-6">  
+                                <select class="form-control {{ $errors->has('parent_id') ? 'is-invalid' : '' }}" name="parent_id"  value="{{ old('parent_id') }}">
+                                    <option value="" disabled selected>Select Parent/Guardian</option>
+                                    @if(count($studentParent)>0)
+                                        @foreach($studentParent as $std_p)
+                                        <option value="{{$std_p->id}}">{{$std_p->id_no}} : {{strtoupper($std_p->name)}}</option> 
+                                        @endforeach
+                                    @else
+                                    {{ _('No CLASSES Yet') }} 
+                                    @endif         
+                                </select>    
+                                    @if ($errors->has('parent_id'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('parent_id') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                        </div>  
                                    <!--dob  -->
                         <div class="form-group{{ $errors->has('date_of_birth') ? ' has-error' : '' }}">
                             <label for="date_of_birth" class="col-md-4 control-label">Date Of Birth</label>
@@ -127,7 +147,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Register
+                                    <i class="glyphicon glyphicon-pencil"></i>  REGISTER
                                 </button>
                             </div>
                         </div>

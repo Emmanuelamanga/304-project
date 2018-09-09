@@ -16,79 +16,91 @@
 	
 @section('window')
         @include('admin.inc.messages')
- @if(count($teachers)>0)
- <h4 class='text-center'>ALL TEACHERS</h4>
-<table  class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%"
-data-pagination="true" data-search="true" data-toggle="table">
-    <thead class="thead-light">
-        <tr>
-        <th data-sortable="true" data-field="name" class="th-sm">NAME
-            <i class="fa fa-sort float-right" aria-hidden="true"></i>
-        </th>
-        <th data-sortable="true" class="th-sm">ID NUMBER
-            <i class="fa fa-sort float-right" aria-hidden="true"></i>
-        </th>
-        <th data-sortable="true" class="th-sm">EMAIL
-            <i class="fa fa-sort float-right" aria-hidden="true"></i>
-        </th>
-        <th class="th-sm">TELEPHONE
-            <i class="fa fa-sort float-right" aria-hidden="true"></i>
-        </th>
-        </th>
-        <th class="th-sm">EDIT
-            <i class="fa fa-sort float-right" aria-hidden="true"></i>
-        </th>
-        <th class="th-sm">DELETE
-            <i class="fa fa-sort float-right" aria-hidden="true"></i>
-        </th>
-       
-        </tr>
-    </thead>
-    <tbody class="">
-        
-    @foreach($teachers as $teacher)
-        <tr>
-        <td>{{$teacher->name}}</td>
-        <td>{{$teacher->id_no}}</td>
-        <td>{{$teacher->email}}</td>
-        <td>{{$teacher->tel}}</td>
-       
+        <div class="panel panel-default">
+            <div class="panel-body">
+                        @if(count($teachers)>0)
+            <h4 class='text-center'>ALL TEACHERS</h4>
+            <table  class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%"
+            data-pagination="true" data-search="true" data-toggle="table">
+                <thead class="thead-light">
+                    <tr>
+                    <th data-sortable="true" data-field="name" class="th-sm">NAME
+                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                    </th>
+                    <th data-sortable="true" class="th-sm">ID NUMBER
+                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                    </th>
+                    <th data-sortable="true" class="th-sm">EMAIL
+                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                    </th>
+                    <th class="th-sm">ROLE
+                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                    </th>
+                    <th class="th-sm">TELEPHONE
+                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                    </th>
+                    
+                    </th>
+                    <th class="th-sm">EDIT
+                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                    </th>
+                    <!-- <th class="th-sm">DELETE
+                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                    </th> -->
+                
+                    </tr>
+                </thead>
+                <tbody class="">
+                    
+                @foreach($teachers as $teacher)
+                    <tr>
+                    <td>{{$teacher->name}}</td>
+                    <td>{{$teacher->id_no}}</td>
+                    <td>{{$teacher->email}}</td>
+                    <td>{{$teacher->role}}</td>
+                    <td>{{$teacher->tel}}</td>
+                
 
-        <td><a href="teachers/{{$teacher->id}}/edit" class='btn btn-sm btn-info'> <i class='glyphicon glyphicon-eye-open'></i> EDIT</a></td>
-        <td>
-        <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#myModal"> <i class='glyphicon glyphicon-remove'></i> DELETE</button>
-        
-        
-        </td>
-    </tr>
-    @endforeach
-            
-    </tbody>
-    <tfoot>
-        <tr>
-        <th>Name</i>
-        </th>
-        <th>ID NO</i>
-        </th>
-        <th>EMAIL</i>
-        </th>
-        <th>TEL</i>
-        </th>
-        </th>
-        <th>EDIT</i>
-        </th>
-        <th>DELETE</i>
-        </th>
-       
-        
-        </tr>
-    </tfoot>
-    </table>
-@else
-<div class="alert alert-warning">
-  <strong>No Teachers Records !</strong> 
-</div>
-@endif
+                    <td><a href="teachers/{{$teacher->id}}/edit" class='btn btn-sm btn-info'> <i class='glyphicon glyphicon-edit'></i> EDIT</a></td>
+                    <td>
+                    <!-- <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#myModal"> <i class='glyphicon glyphicon-remove'></i> DELETE</button> -->
+                    
+                
+                    </td>
+                </tr>
+                @endforeach
+                        
+                </tbody>
+                <tfoot>
+                    <tr>
+                    <th>Name</i>
+                    </th>
+                    <th>ID NO</i>
+                    </th>
+                    <th>EMAIL</i>
+                    </th>
+                    <th>ROLE</i>
+                    </th>
+                    <th>TEL</i>
+                    </th>
+                    </th>
+                    <th>EDIT</i>
+                    </th>
+                    <!-- <th>DELETE</i>
+                    </th> -->
+                
+                    
+                    </tr>
+                </tfoot>
+                </table>
+            @else
+            <div class="alert alert-warning">
+            <strong>No Teachers Records !</strong> 
+            </div>
+            @endif
+            </div>
+        </div>
+
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">

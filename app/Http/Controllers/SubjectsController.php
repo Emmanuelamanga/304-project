@@ -51,6 +51,8 @@ class SubjectsController extends Controller
             $subject->ref_no = $request->input('ref_no');
             $ref_no = $subject->subject_name=strtoupper($request->input('subject_name'));
             $subject-> save();
+
+        
             
             // add subject name to the subject table
              DB::statement("ALTER TABLE results ADD $ref_no varchar(191) AFTER adm_no");

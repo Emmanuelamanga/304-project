@@ -15,6 +15,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//get graph
+
+Route::get('/graph', function () {
+  return view('results/graph');
+});
+
+Route::get('/guage', function () {
+  return view('results/guage');
+});
+
+Route::get('/map', function () {
+  return view('results/map');
+});
 /*
 resouce route for teachers
 */ 
@@ -28,8 +41,15 @@ Route::group(['prefix'=>'admin'],function(){
   Route::resource('rooms','RoomsController');
   
   Route::resource('teachers_subjects','Teachers_SubjectsController');
-
+  
+  // set subject route
+  Route::Post('setroom','Teachers_SubjectsController@setRoom')->name('setRoom');
+  
   Route::resource('subjects','SubjectsController');
+
+  Route::resource('std_parents','Student_ParentController');
+
+  Route::resource('teacherRoom','TeacherRoomController');
   
 });
 
@@ -39,8 +59,22 @@ Route::group(['prefix'=>'admin'],function(){
   Route::resource('result_chart','ResultChartController');
 
 Route::group(['prefix'=>'teacher'],function(){
+    //redirect teacher
+    Route::get('/home', function(){
+      return view('teacher/home');
+    });
+
     Route::resource('reports','ReportsController');
-    Route::resource('results','ResultsController');    
+    Route::resource('results','ResultsController'); 
+
+    // marks
+    Route::resource('marks','EnterMarksController');
+
+    // set subject
+    // Route::get('set_sub/{id}','EnterMarksController@setSub');
+    
+    
+
  });  
 
 
@@ -67,7 +101,7 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 Route::group(['prefix' => 'teacher'], function () {
-  Route::get('/login', 'TeacherAuth\LoginController@showLoginForm')->name('teacher_login');
+  Route::get('/login', 'TeacherAuth\LoginController@showLoginForm')->name('login');
   Route::post('/login', 'TeacherAuth\LoginController@login');
   Route::post('/logout', 'TeacherAuth\LoginController@logout')->name('logout');
 
@@ -81,7 +115,7 @@ Route::group(['prefix' => 'teacher'], function () {
 });
 
 Route::group(['prefix' => 'student'], function () {
-  Route::get('/login', 'StudentAuth\LoginController@showLoginForm')->name('login');
+  Route::get('/login', 'StudentAuth\LoginController@showLoginForm')->name('student_login');
   Route::post('/login', 'StudentAuth\LoginController@login');
   Route::post('/logout', 'StudentAuth\LoginController@logout')->name('logout');
 

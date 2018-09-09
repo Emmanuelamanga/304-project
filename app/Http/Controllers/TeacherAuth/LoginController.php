@@ -50,9 +50,11 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     { 
-        $subjects = App\Subject::all();
+        // $subjects = App\Subject::all();
 
-        return view('teacher.auth.login')->with('subjects', $subjects);
+        return view('teacher.auth.login')
+                // ->with('subjects', $subjects)
+                ;
     }
 
     /**
