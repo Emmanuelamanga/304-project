@@ -19,85 +19,90 @@
     </div>
 
 <br>
-	<table id="myTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-  <thead>
-    <tr>
-       <th class="th-sm">#
-        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-      </th>
-      <th class="th-sm">NAME
-        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-      </th>
-      <th class="th-sm">ADM NO
-        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-      </th>
-      <th class="th-sm">D.O.B
-        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-      </th>
-      <th class="th-sm">FORM
-        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-      </th>
-      <th class="th-sm">EMAIL
-        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-      </th>
-      <!-- <th class="th-sm">HOBBY
-        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-      </th> -->
-      <th class="th-sm">D.O.R
-        <i class="fa fa-sort float-right" aria-hidden="true"></i>
-      </th>
-      <th class="th-sm">EDIT
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-  	
-  		@foreach($students as $key =>  $student)
-		    <tr>
-          <td>{{$key+1}}</td>
-		      <td>{{$student->name}}</td>
-		      <td>{{$student->adm_no}}</td>
-		      <td>{{$student->dob}}</td>
-		      <td>{{$student->room}}</td>
-		      <td>{{$student->email}}</td>
-		      <!-- <td>{{$student->hobby}}</td> -->
-		      <td>{{$student->created_at}}</td>
-          <td> <a href="students/{{$student->id}}/edit" class="btn btn-sm btn-info" > <i class='glyphicon glyphicon-edit'></i>  EDIT</a></td>
-		    </tr>
-    	@endforeach
-    	
-  </tbody>
-  <tfoot>
-    <tr>
-    <th>#</i>
-      </th>
-      <th>Name</i>
-      </th>
-      <th>ADM NO</i>
-      </th>
-      <th>D.O.B</i>
-      </th>
-      <th>FORM</i>
-      </th>
-      <th>EMAIL</i>
-      </th>
-       </th>
-      <!-- <th>HOBBY</i>
-      </th> -->
-      <th>D.O.R</i>
-      </th>
-      <th >EDIT
-      </th>
-    </tr>
-  </tfoot>
-</table>
-@else
-<div class="alert alert-warning">
-<button type="button" class="close" data-dismiss="alert">×</button>	
-  <strong>No Student Records !</strong> 
+<div class="panel panel-default">
+  <div class="panel-body">
+        <table id="myTable" class="table table-striped table-bordered table-sm table-hover" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th class="th-sm">#
+            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+          </th>
+          <th class="th-sm">NAME
+            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+          </th>
+          <th class="th-sm">ADM NO
+            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+          </th>
+          <th class="th-sm">D.O.B
+            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+          </th>
+          <th class="th-sm">FORM
+            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+          </th>
+          <th class="th-sm">EMAIL
+            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+          </th>
+          <!-- <th class="th-sm">HOBBY
+            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+          </th> -->
+          <th class="th-sm">D.O.R
+            <i class="fa fa-sort float-right" aria-hidden="true"></i>
+          </th>
+          <th class="th-sm">EDIT
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        
+          @foreach($students as $key =>  $student)
+            <tr>
+              <td>{{$key+1}}</td>
+              <td>{{$student->name}}</td>
+              <td>{{$student->adm_no}}</td>
+              <td>{{$student->dob}}</td>
+              <td>{{$student->room}}</td>
+              <td>{{$student->email}}</td>
+              <!-- <td>{{$student->hobby}}</td> -->
+              <td>{{$student->created_at}}</td>
+              <td> <a href="students/{{$student->id}}/edit" class="btn btn-sm btn-info" > <i class='glyphicon glyphicon-edit'></i>  EDIT</a></td>
+            </tr>
+          @endforeach
+          
+      </tbody>
+      <tfoot>
+        <tr>
+        <th>#</i>
+          </th>
+          <th>Name</i>
+          </th>
+          <th>ADM NO</i>
+          </th>
+          <th>D.O.B</i>
+          </th>
+          <th>FORM</i>
+          </th>
+          <th>EMAIL</i>
+          </th>
+          </th>
+          <!-- <th>HOBBY</i>
+          </th> -->
+          <th>D.O.R</i>
+          </th>
+          <th >EDIT
+          </th>
+        </tr>
+      </tfoot>
+    </table>
+    @else
+    <div class="alert alert-warning">
+    <button type="button" class="close" data-dismiss="alert">×</button>	
+      <strong>No Student Records !</strong> 
+    </div>
+
+    @endif
+  </div>
 </div>
 
-@endif
 @endsection
 
 @section('scripts')

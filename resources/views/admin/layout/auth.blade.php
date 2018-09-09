@@ -54,10 +54,17 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'SMS') }}
-                </a>
+                    <!-- Branding Image -->
+                    @if (Auth::guest())
+                       <a class="navbar-brand" href="{{ url('/') }}"> 
+                       {{ config('app.name', 'SMS') }}  </a>
+                       <a class="navbar-brand" href="{{ url('/admin/login') }}">HOME</a>
+                    @else
+                    
+                <a class="navbar-brand" href="{{ url('/admin/home') }}">
+                    {{ config('app.name', 'SMS') }} </a>
+                    <a class="navbar-brand" href="{{ url('/admin/login') }}">HOME</a>
+                @endif
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -71,7 +78,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li><a href="{{ url('/admin/login') }}">HOME</a></li>
+                        <!-- <li><a href="{{ url('/admin/login') }}">HOME</a></li> -->
                         <!-- <li><a href="{{ url('/admin/register') }}">Register</a></li> -->
                     @else
                         <li class="dropdown">

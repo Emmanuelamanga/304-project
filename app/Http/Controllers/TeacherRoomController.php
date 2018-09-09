@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Teacher;
 use App\Subject;
 use App\Room;
 use App\Teacher_room;
+use Auth;
 
 use App;
 
@@ -23,6 +25,7 @@ class TeacherRoomController extends Controller
         // get teachers records from db
         $teachers_r = Teacher_room::all();
 
+        
         return view('admin/pages/room/teacher-room')
                 ->with('teachers_r', $teachers_r);
     }
@@ -66,15 +69,25 @@ class TeacherRoomController extends Controller
             return  redirect()->back()->with('warning', 'A Teacher is subject to At most Two Subjects Per class');
         
         }else {
+            // insert teacher room to db
+            DB::table('teacher_room')->insert(
+                [
+                'id_no' => $request->get('id_no'),
+                'room_ref' => $request->get('room_ref'),
+                ]
+            );
+            
+            // insert teacher subject in db
            for ($i=0; $i < count($ref_no) ; $i++) { 
                 $ref = $ref_no[$i];
                 // echo $ref.'<br>';
 
                 Teacher_room::create([
+                    // insert id for teacher
                     'id_no' => $request->get('id_no'),
-
+                    // insert subject
                     'ref_no' => $ref,
-                    
+                    // insert room
                     'room_ref' => $request->get('room_ref'),
                 ]);
 

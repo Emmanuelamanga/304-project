@@ -2,14 +2,10 @@
 
 namespace App;
 
-use App\Notifications\TeacherResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\Auth;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Teacher extends Authenticatable
+class Admin extends Authenticatable
 {
     use Notifiable;
 
@@ -19,7 +15,7 @@ class Teacher extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','id_no','tel',
+        'name', 'email', 'password',
     ];
 
     /**
@@ -30,8 +26,7 @@ class Teacher extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    /**
+     /**
      * Send the password reset notification.
      *
      * @param  string  $token
@@ -39,20 +34,6 @@ class Teacher extends Authenticatable
      */
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new TeacherResetPassword($token));
+        $this->notify(new AdminResetPassword($token));
     }
-
-    public function subject(){
-
-        $this->hasMany('App\Subject');
-    }
-
-    public function room(){
-
-        $this->hasOne('App\Room');
-    }
-
-  
-    // Auth::logout();
-
 }

@@ -43,11 +43,29 @@ class EnterMarkscontroller extends Controller
      */
     public function create()
     {
-        
-            $rooms = Room::All();
+        // get details of auth user 
+        $room = DB::table('teacher_room')
+                ->select('room_ref')
+                ->where('id_no', Auth::user()->id_no)
+                ->first();
+
+        // get rooms
+        if (Auth::user()->role == 'Class Teacher') {
+            return view('teacher/marks/rooms')
+                        ->with('rooms', Room::all());  
+        }elseif(count($room)<1) {     
+
+        return view('teacher/marks/rooms')
+                        ->with('rooms', $room)
+                        ->with('warning', 'NO ROOMS ALLOCATED');  
+        } else {
+           $rooms = Room::where('room_ref', $room->room_ref )->get();
            
             return view('teacher/marks/rooms')
-                        ->with('rooms', $rooms);     
+                        ->with('rooms', $rooms);  
+        }
+        
+               
     }
 
     /**
@@ -62,20 +80,52 @@ class EnterMarkscontroller extends Controller
             'marks' => 'required'
         ]);
             //get the marks in an array
-        $marks = $request->input('marks');
-            // get column title
-        $subject ;
+            $marks = $request->input('marks');
+            // get room via session
+            $room = session('room');
 
-            //loop through the aray as you fil the values
-           for ($i=0; $i < count($marks) ; $i++) { 
-               
-                 $marks[$i];
-                $request->input('adm_no');
+            // get subject via session
+           $subject = session('subject');
+
+           
+
+
+            //loop through the array as you update the results with the ids
+           for ($i=0; $i < count($marks) ; $i++) {
+
+            // $mark = $marks[$i];
+
+                // Result::create([
+                //     'adm_no' => $request->input('adm_no'),
+                //     session('subject') =>  $request->input('marks')
+                // ]);   
+
             } 
-     
+
+            $marks = $request->input('marks');
+            $adm_no = $request->input('adm_no');
+
+            foreach($adm_no as $adm) {
+                
+                $result = Result::where('adm_no', $adm)->first();
+
+                if ($adm == $result->adm_no) {
+                //    echo 'match found';
+                } else {
+
+                DB::insert('insert into results (adm_no) values (?)', array($adm));
+                   
+                }
+                foreach($marks as $mark) {
+
+                       DB::table('results')->where('adm_no', $adm)->update([session('subject') => $mark]);
+                   }
+              
+            }
+            $request->session()->forget(['room','subject']);
         
                 
-        return ;
+        return redirect()->route('marks.create')->with('success', 'Marks Added');
     }
 
     /**
@@ -85,10 +135,11 @@ class EnterMarkscontroller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-
+    {       $room = Room::find($id);
+        // Via the global helper...
+        session(['room' => $room->room_ref]);
+        
         return view('teacher/marks/subject')
-                ->with('room', Room::find($id))
                 ->with('subjects', Subject::all());
     }
 
@@ -100,6 +151,10 @@ class EnterMarkscontroller extends Controller
      */
     public function edit($id)
     {
+        $subject = Subject::find($id);
+
+         // Via the global helper...
+         session(['subject' => $subject->subject_name]);
         
         return view('teacher/marks/enter-marks')
                 ->with('students', Student::all());

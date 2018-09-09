@@ -25,8 +25,10 @@
                                 <td>{{$key+1}}</td>
                                 <td>{{$student->adm_no}}</td>
                                 <td>{{$student->name}}</td>
-                                <td>     
-                                    <input  type="hidden" class="form-control" name="adm_no" value="{{$student->adm_no}}">                  
+                                <td>    
+                                 <!--set admission numbers in an array  -->
+                                    <input  type="hidden" class="form-control" name="adm_no[]" value="{{$student->adm_no}}">                  
+                                    <!-- set the marks in an array -->
                                     <div class="col-xs-6">
                                         <div class="form-group{{ $errors->has('marks') ? ' has-error' : '' }}">
                                                 <input id="marks" type="text" class="form-control" name="marks[]" value="{{ old('marks') }}" autofocus>

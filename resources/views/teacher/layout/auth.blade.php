@@ -40,12 +40,12 @@
                 <!-- Branding Image -->
                 @if (Auth::guest())
                        <a class="navbar-brand" href="{{ url('/') }}"> 
-                       {{ config('app.name', 'SMS') }} 
+                       {{ config('app.name', 'SMS') }}  </a>
                     @else
                 <a class="navbar-brand" href="{{ url('/teacher/home') }}">
-                    {{ config('app.name', 'SMS') }}
+                    {{ config('app.name', 'SMS') }} </a>
                 @endif
-                </a>
+               
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -66,6 +66,15 @@
                             </ul>
                         </li>
                     @else
+                    <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">MARKS
+                            <span class="caret"></span></a>
+                            <ul class="dropdown-menu">      
+                                <li ><a href="{{route('marks.create')}}">ADD MARKS</a></li>
+                                <li class="divider"></li>
+                                <li ><a href="">VIEW Marks</a></li>                                                      
+                            </ul>
+                        </li>
                     <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">RESULTS
                             <span class="caret"></span></a>
@@ -99,21 +108,20 @@
                         <li><a href="{{ url('/teacher/login') }}">Login</a></li>
                         <!-- <li><a href="{{ url('/teacher/register') }}">Register</a></li> -->
                     @else
-                        <li class="dropdown">
+                    <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name}} <span class="caret"></span>
+                                {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{route('profile.index')}}"> <span class="gyphicon glyphicon-user"></span> Profile</a></li>
-
                                 <li>
-                                    <a href="{{ url('/teacher/logout') }}"
-                                       >
+                                    <a href="{{ route('teacher.logout') }}"
+                                        onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
                                         Logout
                                     </a>
 
-                                    <form id="logout-form" action="{{ url('/teacher/logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{  route('teacher.logout') }}" method="POST" style="display: none;">
                                         {{ csrf_field() }}
                                     </form>
                                 </li>

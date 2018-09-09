@@ -34,6 +34,11 @@ resouce route for teachers
 
 Route::group(['prefix'=>'admin'],function(){
 
+   //redirect admin
+   Route::get('/home', function(){
+    return view('admin/home');
+  });
+
   Route::resource('teachers','TeachersController');
 
   Route::resource('students','StudentsController');
@@ -103,7 +108,7 @@ Route::group(['prefix' => 'admin'], function () {
 Route::group(['prefix' => 'teacher'], function () {
   Route::get('/login', 'TeacherAuth\LoginController@showLoginForm')->name('login');
   Route::post('/login', 'TeacherAuth\LoginController@login');
-  Route::post('/logout', 'TeacherAuth\LoginController@logout')->name('logout');
+  Route::post('/logout', 'TeacherAuth\LoginController@logout')->name('teacher.logout');
 
   Route::get('/register', 'TeacherAuth\RegisterController@showRegistrationForm')->name('teachers_register');
   Route::post('/register', 'TeacherAuth\RegisterController@register');

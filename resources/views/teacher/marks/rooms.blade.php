@@ -4,14 +4,20 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+        @include('admin.inc.messages')
             <div class="panel panel-default">
                 <div class="panel-heading">SELECT ROOM</div>
                 <div class="panel-body">
-                @foreach($rooms as $rm)
-                    <ul>
-                    <li> <a href="{{route('marks.show', [$rm->id])}}" >{{ $rm->class_name }}</a> </li>
-                </ul>
-                @endforeach
+                @if(count($rooms)>0)
+                    @foreach($rooms as $rm)
+                        <ul>
+                          <li> <a href="{{route('marks.show', [$rm->id])}}" >{{ $rm->class_name }}</a> </li>
+                        </ul>
+                    @endforeach
+                @else
+                        <span class="alert alert-danger">NO ROOMS ALLOCATED</span>
+                @endif
+                
                 </div>
             </div>
         </div>
