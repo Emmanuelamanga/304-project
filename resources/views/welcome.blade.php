@@ -70,11 +70,10 @@
 								<div class="list-group">
 										<a class="list-group-item " href="{{ route('admin_login') }}">ADMIN</a>
 										<a class="list-group-item" href="{{ route('login') }}"> TEACHER</a>
-										<a class="list-group-item" href="#">CLASS TEACHER</a>	
+										<!-- <a class="list-group-item" href="#">CLASS TEACHER</a>	 -->
 										<ul class="nav nav-pills nav-stacked">
 									</div>
 							</div>
-								
 							<!-- </div> -->
 						</div>
 					</div>

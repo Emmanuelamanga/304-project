@@ -33,10 +33,10 @@ class ResultsController extends Controller
                         ->leftjoin('results','results.adm_no','=','students.adm_no')
                         ->get();
         
-        // return view('results/index')
-        //         ->with('results', $results);
+        return view('results/index')
+                ->with('results', $results);
 
-                return $results;
+               
     }
 
     /**

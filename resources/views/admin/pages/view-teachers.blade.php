@@ -18,7 +18,7 @@
         @include('admin.inc.messages')
         <div class="panel panel-default">
             <div class="panel-body">
-                        @if(count($teachers)>0)
+            @if(count($teachers)>0)
             <h4 class='text-center'>ALL TEACHERS</h4>
             <table  class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%"
             data-pagination="true" data-search="true" data-toggle="table">
@@ -57,7 +57,17 @@
                     <td>{{$teacher->name}}</td>
                     <td>{{$teacher->id_no}}</td>
                     <td>{{$teacher->email}}</td>
-                    <td>{{$teacher->role}}</td>
+                    <td>
+                        {{$teacher->role}} <br>
+                        @if(count($teacher_heads)>0)
+                            @foreach($teacher_heads as $teacher_head)
+                                @if($teacher_head->id_no == $teacher_id_no)
+                                    {{}}
+                                @else
+
+                                @endif
+                            @endforeach
+                     </td>
                     <td>{{$teacher->tel}}</td>
                 
 

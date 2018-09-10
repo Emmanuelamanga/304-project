@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Teacher;
+use App\Room;
+use App\RoomHead;
 use App;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,8 +29,12 @@ class TeachersController extends Controller
      */
     public function index()
     {
+        // get class heads
+        $teacher_head = RoomHead::all();
+
          return view('admin.pages.view-teachers')
-           ->with('teachers', App\Teacher::orderBy('created_at', 'DESC')->get());
+            ->with('teacher_heads', $teacher_head)
+            ->with('teachers', App\Teacher::orderBy('created_at', 'DESC')->get());
     }
     
 
@@ -96,7 +102,9 @@ class TeachersController extends Controller
     public function edit($id)
     {
         $teacher = Teacher::find($id);
-        return view('admin.pages.edit-teacher', compact('teacher',$teacher));
+        return view('admin.pages.edit-teacher', compact('teacher',$teacher))
+
+                    ->with('rooms', Room::all());
     }
 
     /**
@@ -125,8 +133,44 @@ class TeachersController extends Controller
                                 'id_no'=>$request->id_no,
                                 'email'=>$request->email,
                                 'role'=>$request->t_role
-                                
                             ]);
+        
+
+             // return DB::table('room_heads')->where('id_no', $id)->doesntExist();
+             if($request->t_role === "Teacher"){
+
+                DB::table('room_heads')
+                    ->where('id_no', $request->id_no)
+                    ->delete();
+                // DB::table('room_heads')->update(
+                //     [
+                //     'id_no' =>  $request->id_no, 
+                //     'room_ref' => $request->input('room'),
+                //     'active' => 0    
+                //     ]
+                // ); 
+            
+            }
+            if ($request->input('room') != null) {                  
+                    if(DB::table('room_heads')->where('id_no', $request->id_no)->exists()){
+                        return redirect()->route('teachers.index')
+                            ->with('success','Teacher\'s Record Updated '.$request->name.' is a class teacher')
+                            ->with('teachers', Teacher::orderBy('created_at', 'DESC')->get());
+
+                    }else{
+                       
+                       DB::table('room_heads')->insert(
+                            [
+                            'id_no' =>  $request->id_no, 
+                            'room_ref' => $request->input('room'),
+                            'active' => 1    
+                            ]
+                        );  
+                    }
+                             
+                        
+            }
+            
 
             return redirect()->route('teachers.index')
                             ->with('success','Teacher\'s Record Updated')

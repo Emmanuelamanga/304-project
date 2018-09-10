@@ -21,10 +21,7 @@
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('teachers.update',[$teacher->id]) }}">
                             {{ csrf_field() }}
-                            {{ @method_field('PATCH') }}
-                            
-
-                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            {{ @method_field('PATCH') }}                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">Name</label>
                                 <div class="col-md-6">
                                     <input id="name" type="text" class="form-control" name="name" value="{{ old('$teacher->name',$teacher->name) }}" >
@@ -73,23 +70,44 @@
                                     @endif
                                 </div>
                             </div>
-                                <!-- role -->
+                            <!-- role -->
                              <div class="form-group {{$errors->has('t_role') ? ' has-error' : '' }}">
                                
                             <label for="name" class="col-md-4 control-label">ROLE</label>
                                   <div class="col-md-6">   <small>Current: {{$teacher->role}}</small>
-                                  <select class="form-control {{ $errors->has('t_role') ? 'is-invalid' : '' }}" name="t_role"  value="{{ old('t_role') }}">
+                                  <select id="tch" class="form-control {{ $errors->has('t_role') ? 'is-invalid' : '' }}" onchange="disableElement()" name="t_role"  value="{{ old('t_role') }}">
                                         <option value="" disabled selected>Select Role</option>                    
                                             <option value="Teacher">Teacher</option>
                                             <option value="Class Teacher">Class Teacher</option>                                               
                                     </select>    
                                         @if ($errors->has('t_role'))
-                                            <span class="invalid-feedback" t_role="alert">
+                                            <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('t_role') }}</strong>
                                             </span>
                                         @endif
                                     </div>
-                                </div>  
+                                </div> 
+                            <!-- rooms display if class teacher selected -->
+                            <div id="roomid" class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                <div class="checkbox form-group {{$errors->has('room') ? ' has-error' : '' }}">   
+                                @if(count($rooms)> 0)
+                                    @foreach($rooms as $room)
+                                     <label class="radio-inline">
+                                     <input id="room" name="room" type="radio" value="{{$room->room_ref}}"   > {{$room->class_name}} </label>
+                                    @endforeach
+                                @else
+                                        <span class="alert alert-info">NO ROOMS</span>
+                                @endif
+                                    @if ($errors->has('room'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('room') }}</strong>
+                                            </span>
+                                        @endif                                
+                                </div>
+                                </div>
+                            </div>
+                            
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
@@ -108,6 +126,38 @@
 @endsection
 
 @section('scripts')
+<script>
+    function myfunction(){
+        var rd = document.getElementById('roomid');
 
+        // hide
+        rd.style.visibility = 'hidden'; 
+    }
+
+    function disableElement() {
+
+        var e = document.getElementById("tch");
+        var strUser = e.options[e.selectedIndex].value;
+
+        if (strUser == "Teacher") {
+
+        var div = document.getElementById('room');
+
+        // // hide
+        div.style.visibility = 'hidden'; 
+  
+        }else{
+            // 
+            var dr = document.getElementById('roomid');
+
+            // hide
+            dr.style.visibility = 'visible'; 
+
+            document.getElementById("room").disabled = false;
+
+        } 
+        
+    }
+</script>
 
 @endsection

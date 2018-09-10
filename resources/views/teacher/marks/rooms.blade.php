@@ -11,7 +11,7 @@
                 @if(count($rooms)>0)
                     @foreach($rooms as $rm)
                         <ul>
-                          <li> <a href="{{route('marks.show', [$rm->id])}}" >{{ $rm->class_name }}</a> </li>
+                          <li> <a href="{{route('marks.show', [$rm->id])}}" class="btn btn-default" >{{ $rm->class_name }}</a> </li>
                         </ul>
                     @endforeach
                 @else

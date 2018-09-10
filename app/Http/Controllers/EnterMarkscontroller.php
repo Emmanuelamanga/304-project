@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Teacher;
 use App\Teacher_room;
+use App\Teacher_subject;
 use App\Room;
 use App\Subject;
 use App\Result;
@@ -43,29 +44,26 @@ class EnterMarkscontroller extends Controller
      */
     public function create()
     {
-        // get details of auth user 
-        $room = DB::table('teacher_room')
-                ->select('room_ref')
-                ->where('id_no', Auth::user()->id_no)
-                ->first();
+        // fetch all the rooms allocated to the user from teacher_room table
+        $rooms = Teacher_subject::where('id_no', Auth::user()->id_no)                            
+                                    ->get(); 
 
-        // get rooms
-        if (Auth::user()->role == 'Class Teacher') {
+        // check if there is rooms for teacher
+        if (count($rooms)>0) {
+
+            foreach ($rooms as $key => $room) {
+               $rm[] = Room::where('room_ref', $room->room_ref)->first();
+            }
+
             return view('teacher/marks/rooms')
-                        ->with('rooms', Room::all());  
-        }elseif(count($room)<1) {     
-
-        return view('teacher/marks/rooms')
-                        ->with('rooms', $room)
-                        ->with('warning', 'NO ROOMS ALLOCATED');  
+                        ->with('rooms', $rm); 
         } else {
-           $rooms = Room::where('room_ref', $room->room_ref )->get();
-           
+            
+            // if no rooms set an empty set of rooms to throw an error
             return view('teacher/marks/rooms')
-                        ->with('rooms', $rooms);  
-        }
-        
-               
+                        ->with('rooms', []);    
+        }    
+                  
     }
 
     /**
@@ -85,41 +83,34 @@ class EnterMarkscontroller extends Controller
             $room = session('room');
 
             // get subject via session
-           $subject = session('subject');
+            $subject = session('subject'); 
 
-           
-
-
-            //loop through the array as you update the results with the ids
-           for ($i=0; $i < count($marks) ; $i++) {
-
-            // $mark = $marks[$i];
-
-                // Result::create([
-                //     'adm_no' => $request->input('adm_no'),
-                //     session('subject') =>  $request->input('marks')
-                // ]);   
-
-            } 
-
+            // get marks from the input as array
             $marks = $request->input('marks');
-            $adm_no = $request->input('adm_no');
 
+            // get admission nu8mber from input as array
+            $adm_no = $request->input('adm_no');
+            
+            // loop through adm numbers 
             foreach($adm_no as $adm) {
                 
                 $result = Result::where('adm_no', $adm)->first();
 
                 if ($adm == $result->adm_no) {
+
                 //    echo 'match found';
+
                 } else {
 
+                // insert adm numbers 
                 DB::insert('insert into results (adm_no) values (?)', array($adm));
                    
                 }
                 foreach($marks as $mark) {
-
-                       DB::table('results')->where('adm_no', $adm)->update([session('subject') => $mark]);
-                   }
+                    // update results
+                 DB::table('results')->where('adm_no', $adm)->update([session('subject') => $mark]);
+                
+                }
               
             }
             $request->session()->forget(['room','subject']);
@@ -135,12 +126,33 @@ class EnterMarkscontroller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {       $room = Room::find($id);
-        // Via the global helper...
+    {   
+        // find the room
+        $room = Room::find($id);
+
+        // set  the room through session global helper...
         session(['room' => $room->room_ref]);
-        
-        return view('teacher/marks/subject')
-                ->with('subjects', Subject::all());
+
+        // get subjects of the logged in teacher from the teacher_subject table
+        $subjects = Teacher_room::where('id_no', Auth::user()->id_no)
+                                ->where('room_ref', $room->room_ref)                             
+                                ->get(); 
+
+         // check if there is subjects for teacher
+         if (count($subjects)>0) {
+
+            foreach ($subjects as $key => $subject) {
+               $rm[] = Subject::where('ref_no', $subject->ref_no)->first();
+            }
+
+            return view('teacher/marks/subject')
+                        ->with('subjects', $rm); 
+        } else {
+            
+            // if no subjects set an empty set of rooms to throw an error
+            return view('teacher/marks/subject')
+                        ->with('subjects', []);    
+        }    
     }
 
     /**
@@ -150,14 +162,34 @@ class EnterMarkscontroller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
+    {   
+        // find the selected subject
         $subject = Subject::find($id);
 
          // Via the global helper...
          session(['subject' => $subject->subject_name]);
-        
-        return view('teacher/marks/enter-marks')
-                ->with('students', Student::all());
+
+
+         $rooms =  Room::where('room_ref', session('room'))->get();
+
+            if (count($rooms)>0) {
+                foreach ($rooms as $key => $room) {
+                    // set rooms in an array
+                   $rms[] = Student::where('room', $room->class_name)->first();
+                }
+
+                return view('teacher/marks/enter-marks')
+                // send array of students in that class
+                        ->with('students', $rms)
+                        // send current subject
+                        ->with('subject', session('subject'))
+                        // send current room
+                        ->with('room', Room::where('room_ref', session('room'))->first());
+            } else {
+                
+            }
+            
+      
     }
 
     /**

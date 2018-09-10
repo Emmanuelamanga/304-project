@@ -25,9 +25,16 @@ class PdfController extends Controller
  
         public function index(Request $request) {
 
+            // get the room of the class teacher
+            $room = Room::where('id_no', Auth::user()->id_no)->first();
+
+            // get all students with results
             $users = Student::where('results', 1)
+                    ->where('room', $room)
                     ->orderby('created_at', 'desc')
                     ->get();
+
+            
             return view('pdf.index',['users' => $users]);
             
         }
