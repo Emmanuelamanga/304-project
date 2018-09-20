@@ -85,17 +85,42 @@
       <div class="panel-heading">
         <h4 class="panel-title">
           <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-          ROOMS</a>
+          CLASS</a>
         </h4>
       </div>
       <div id="collapse4" class="panel-collapse collapse">
         <div class="panel-body">
-          <ul class="list-group">
-              <a href="{{route('rooms.create')}}"><li class="list-group-item"><span class="glyphicon glyphicon-plus"></span> ADD ROOM</li></a>
-              <li class="list-group-item"><a href="{{route('rooms.index')}}"><span class="glyphicon glyphicon-eye-open"></span>  VIEW ROOM</a></li>
-              <!-- <li class="list-group-item">Three</li> -->
-              <a href="{{route('teacherRoom.index')}}"><li class="list-group-item"><span class="glyphicon glyphicon-plus"></span> ADD TEACHER TO ROOM</li></a>
+                   <!-- drop down index class and sub class -->
+                   <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a data-toggle="collapse" href="#collapse6">
+                          <span class="glyphicon glyphicon-plus"></span>ADD CLASS</a>
+                        </h4>
+                      </div>
+                      <div id="collapse6" class="panel-collapse collapse">
+                        <div class="panel-body">
+                          <ul class="list-group">
+                                <a href="{{route('rooms.create')}}"><li class="list-group-item"><span class="glyphicon glyphicon-plus"></span> ADD INDEX CLASS</a>
+                              <a href="{{route('sub_room.create')}}"><li class="list-group-item"><span class="glyphicon glyphicon-plus"></span> ADD SUB CLASS</a>
+                            </ul>
+                        </div>
+                      </div>
+                    </div>
+         <ul class="list-group">
+         
+          <!-- <li class="list-group-item btn btn-default"><a data-toggle="collapse"  href="#collapse6"><span class="glyphicon glyphicon-plus"></span> ADD CLASS</a></li>
+              <div id="collapse6" class="panel-collapse collapse">
+                  <ul class="list-group">
+                  <li class="list-group-item">
+</li>
+                  <li class="list-group-item"></li>
+                  </ul>
+              </div>-->
+              <li class="list-group-item"><a href="{{route('rooms.index')}}"><span class="glyphicon glyphicon-eye-open"></span>  VIEW CLASS ROOMS</a></li>
+               <a href="{{route('teacherRoom.index')}}"><li class="list-group-item"><span class="glyphicon glyphicon-book"></span> TEACHER(s) TO CLASS ROOMS</li></a>
             </ul>
+
         </div>
       </div>
     </div>
@@ -167,4 +192,5 @@
     <li class="nav-item">
       <a class="nav-link disabled" href="#">Disabled</a>
     </li> -->
+   
 </ul>

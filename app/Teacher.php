@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 class Teacher extends Authenticatable
 {
     use Notifiable;
+    protected $table = 'teachers';
 
     /**
      * The attributes that are mass assignable.
@@ -54,5 +55,12 @@ class Teacher extends Authenticatable
 
   
     // Auth::logout();
+
+     // get class teacher
+     public function get_classTeacher($id_no){
+
+        return Teacher::where('id_no', $id_no)->first();
+    }
+   
 
 }

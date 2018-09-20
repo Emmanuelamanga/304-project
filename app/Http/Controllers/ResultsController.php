@@ -86,18 +86,18 @@ class ResultsController extends Controller
         $this->validate($request,
         [
          
-        'math' => 'required | numeric | max:100',
-        'eng' => 'required | numeric | max:100',
-        'kiswahili' => 'required | numeric | max:100',
-        'physics' => ' numeric | max:100',
-        'biology' => ' numeric | max:100',
-        'chemistry' => 'required | numeric | max:100',
-        'cre' => 'numeric | max:100',     
-        'history' => 'numeric | max:100', 
-        'geography' => 'numeric | max:100', 
-        'computer' => 'numeric | max:100', 
-        'business' => 'numeric | max:100', 
-        'agriculture' => 'numeric | max:100', 
+        'math'      =>  'required | numeric | min:0 |max:100',
+        'eng'       => 'required | numeric | min:0 | max:100',
+        'kiswahili' => 'required | numeric | min:0 | max:100',
+        'physics'   =>  'required | numeric | min:0 | max:100',
+        'biology'   =>  'required | numeric | min:0 | max:100',
+        'chemistry' =>  'required | min:0 | numeric | max:100',
+        'cre'       =>  'required | numeric | min:0 | max:100',     
+        'history'   =>  'required | numeric | min:0 | max:100', 
+        'geography' =>  'required | numeric | min:0 | max:100', 
+        'computer'  =>   'required | numeric | min:0 | max:100', 
+        'business'  =>   'required | numeric | min:0 | max:100', 
+        'agriculture' => 'required | numeric | min:0 | max:100', 
         ]);
 
         Result::create($request->all());

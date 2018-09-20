@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Student;
 use App\Room;
+use App\SubRoom;
 use App\studentParent;
 use App;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class StudentsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('auth:admin');
         // $this->middleware('student');
 
     }
@@ -30,8 +31,17 @@ class StudentsController extends Controller
      */
     public function index()
     {
+        
+        $room = new Room;
+
+        $subroom = new SubRoom;
+
         return view('admin.pages.students.view-students')
-            ->with('students', App\Student::orderBy('created_at', 'DESC')->get());
+            ->with('students', Student::orderBy('created_at', 'DESC')->get())
+            ->with('rooms', Room::all())
+            ->with('subrooms', SubRoom::all())
+            ->with('room', $room)
+            ->with('subroom', $subroom);
     }
 
     /**
@@ -41,10 +51,33 @@ class StudentsController extends Controller
      */
     public function create()
     {
+       
+        // get all the values of the students
+            $students = Student::all();
+
+          
+        // record found
+        if (count($students)>0) {
+            // get last student adm_no
+           $student = Student::latest()->first();
+
+            // set the adm to next
+             // increament any other regestered student reg number
+           $adm = $student->adm_no+1;
+
+        } else { 
+            // set the first adm number to 1000
+           $adm = 1000;
+        }
         
-    return view('admin.pages.students.register-student')
-                    ->with('rooms', App\Room::all())
-                    ->with('studentParent', studentParent::all());
+       
+        
+        
+        return view('admin.pages.students.register-student')
+                        ->with('rooms', App\Room::all())
+                        ->with('subrooms', SubRoom::all())
+                        ->with('adm', $adm)
+                        ->with('studentParent', studentParent::all());
     }
 
     /**
@@ -55,25 +88,29 @@ class StudentsController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         $this->validate($request,[
-            'name' => 'required | alpha | min:3',
+            'name' => 'required | string | min:3',
             'email' => 'required | string | min:5',
-            'admission_number'=> 'required | string',
-            'date_of_birth' => 'required',
-            'student_class' => 'required',
-            'parent_id' => 'required',
-            'password' => 'required|confirmed'
+            'admission_number'=> 'string',
+            'date_of_birth' => 'required|date',
+            'mainroom' => 'required',
+            'sub_room' => 'required',
+            'parent_id' => 'required|numeric',
+        //  'password' => 'required|confirmed'
         ]);
 
 
+            // insert values to database
         DB::table('students')->insert(
                     [
                     'name' => $request->input('name'), 
                     'email' => $request->input('email'),
                     'dob' => $request->input('date_of_birth'),
-                    'room' => $request->input('student_class'),
+                    'room' => $request->input('mainroom'),
+                    'subroom' => $request->input('sub_room'),
                     'adm_no'=> $request->input('admission_number'),
-                    'password'=> bcrypt($request->input('password')),
+                    'password'=> bcrypt('dfjsdlksdjl'),
                     'id_parent'=> $request->input('parent_id'),
                     'results' => 0
                     ]

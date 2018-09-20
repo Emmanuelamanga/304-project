@@ -55,6 +55,13 @@ Route::group(['prefix'=>'admin'],function(){
   Route::resource('std_parents','Student_ParentController');
 
   Route::resource('teacherRoom','TeacherRoomController');
+
+  Route::resource('sub_room','SubRoomController');
+  // Route::post('/get/sub_room', 'SubRoomController@get_room')->name('get_room');
+  // Route::post('/sub_room', 'SubRoomController@store')->name('sub_room.store');
+
+  // logviewer
+  Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
   
 });
 

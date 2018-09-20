@@ -8,6 +8,7 @@ use App\Student;
 use App\Result;
 use App\Room;
 use App\Teacher;
+use Auth;
  
 class PdfController extends Controller
 
@@ -26,11 +27,11 @@ class PdfController extends Controller
         public function index(Request $request) {
 
             // get the room of the class teacher
-            $room = Room::where('id_no', Auth::user()->id_no)->first();
+            // $room = Room::where('id_no', Auth::user()->id_no)->first();
 
             // get all students with results
             $users = Student::where('results', 1)
-                    ->where('room', $room)
+                    // ->where('room', $room)
                     ->orderby('created_at', 'desc')
                     ->get();
 
@@ -43,23 +44,24 @@ class PdfController extends Controller
                   //find the user id from the url
              $user = Student::find($id);
 
-             $result= Result::where('adm_no',$user->adm_no)->first();
+             $result= Result::where('adm_no', $user->adm_no)->first();
 
-             $tcher = Room::where('class_name', $user->room)->first();
+            //  $tcher = Room::where('class_name', $user->room)->first();
 
-             $teacher = Teacher::where('id_no',$tcher->class_teacher)->first();
+            //  $teacher = Teacher::where('id_no', $tcher->class_teacher)->first();
 
             //  $total= Result::where('adm_no',$user->adm_no)->sum();
 
             $grades = new Result;
-                //load data to a view pdf format
+
+            //load data to a view pdf format
                 $view = View('pdf.single', 
                 [
                     'user' => $user,
                     'result'=>$result,
                     'grades' =>$grades,
-                    'teacher' => $teacher,
-                    'details' =>$result
+                    // 'teacher' => $teacher,
+                    // 'details' =>$result
                 ]);
 
                 $pdf = \App::make('dompdf.wrapper');

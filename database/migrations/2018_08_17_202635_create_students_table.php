@@ -18,6 +18,7 @@ class CreateStudentsTable extends Migration
             $table->string('adm_no')->unique();
             $table->string('dob');
             $table->string('room');
+            $table->string('subroom');
             $table->string('email');
             $table->string('results');
             $table->string('password');

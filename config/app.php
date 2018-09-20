@@ -167,6 +167,10 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Collective\Html\HtmlServiceProvider::class,
+        // logs
+        Vijityannapon\Logs\LogsServiceProvider::class,
+        // log viewer
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
     ],
 
@@ -225,6 +229,9 @@ return [
         'PDF' => Barryvdh\DomPDF\Facade::class,
 
         // Khill\Lavacharts\Laravel\LavachartsFacade::class
+
+        // logs
+        'Logs' => Vijityannapon\Logs\Facades\Logs::class,
 
     ],
 

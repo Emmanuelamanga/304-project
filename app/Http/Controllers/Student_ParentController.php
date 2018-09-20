@@ -9,6 +9,17 @@ use Illuminate\Support\Facades\DB;
 
 class Student_ParentController extends Controller
 {
+
+       /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+         $this->middleware(['auth:admin']);
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -43,8 +54,8 @@ class Student_ParentController extends Controller
         $this->validate($request,
         [
         'name' => 'required|max:255',
-        'tel' => 'required|max:255',
-        'id_no' => 'required|max:255',
+        'tel' => 'required|max:10|regex:/^(07)[0-9]{8}/',
+        'id_no' => 'required|numeric|digits_between:7,8',
         'email' => 'required|email|max:255|unique:student_parents',
          ]);
 
@@ -101,8 +112,8 @@ class Student_ParentController extends Controller
         $this->validate($request,
         [
         'name' => 'required|max:255',
-        'tel' => 'required|max:255',
-        'id_no' => 'required|max:255',
+        'tel' => 'required|max:10|regex:/^(07)[0-9]{8}/',
+        'id_no' => 'required|numeric|digits_between:7,8',
         'email' => 'required|email|max:255',
          ]);
         // update record to db

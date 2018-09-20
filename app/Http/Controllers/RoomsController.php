@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Room;
 use App\Teacher;
 use App;
+use App\SubRoom;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -11,6 +12,15 @@ use Illuminate\Support\Facades\DB;
 
 class RoomsController extends Controller
 {
+       /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+         $this->middleware(['auth:admin']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +28,23 @@ class RoomsController extends Controller
      */
     public function index()
     {
+        $c_teacher = new Teacher;
+
+        // rooms + sub_rooms
+        // $rooms_sub = DB::table('rooms')
+        //                 ->leftjoin('sub_rooms','rooms.room_ref', '=' , 'sub_rooms.room_ref')
+        //                 ->get();
+
+        // fetch all the rooms
+        $rooms = Room::all();
+
+        // fetch all the sub rooms
+        $sub_rooms = SubRoom::all();
+
         return view('admin.pages.room.view-rooms')
-            ->with('rooms', Room::all());
+            ->with('rooms', $rooms)
+            ->with('sub_rooms', $sub_rooms)
+            ->with('c_teacher',  $c_teacher);
     }
 
     /**
@@ -29,14 +54,30 @@ class RoomsController extends Controller
      */
     public function create()
     {
-        // $teachers = Teacher::where('role','Class Teacher')->get();
+        // get all the values of the rooms table
+        $rooms = Room::all();
 
-        // left join tables to get the values
+          
+        // record found
+        if (count($rooms)>0) {
+            // get last student adm_no
+           $room = Room::latest()->first();
+
+            // set the adm to next
+             // increament any other regestered student reg number
+           $room_ref = $room->room_ref+1;
+
+        } else { 
+            // set the first adm number to 1000
+           $room_ref = 1000;
+        }
+        
       
         $teachers = Teacher::where('defined_role', 0)->get();
 
         return view('admin.pages.room.create-room')
-        ->with('teachers', $teachers);
+        ->with('teachers', $teachers)
+        ->with('room_ref', $room_ref);
     }
 
     /**
@@ -48,17 +89,17 @@ class RoomsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'class_referance_number' => 'required|numeric',
+            'room_ref' => 'required|numeric',
             'class_name' => 'required|string|min:3',
-            'class_capacity' => 'required|numeric',
-            'class_teacher' => 'required|string|min:3'
+            // 'class_capacity' => 'required|numeric',
+            // 'class_teacher' => 'required|string|min:3'
             ]);
     
             $room = new Room;
-                $room->room_ref = $request->input('class_referance_number');
+                $room->room_ref = $request->input('room_ref');
                 $room->class_name = $request->input('class_name');
-                $room->class_capacity = $request->input('class_capacity');
-                $room->class_teacher = $request->input('class_teacher');
+                // $room->class_capacity = $request->input('class_capacity');
+                // $room->class_teacher = $request->input('class_teacher');
             $room->save();
 
             DB::table('teachers')
@@ -68,8 +109,9 @@ class RoomsController extends Controller
                             'role' => 'Class Teacher',
                             'defined_role' => 1                       
                         ]); 
+
             return redirect()->route('rooms.index')
-                        ->with('success','Class Created');
+                        ->with('success','Index Class Created');
     }
 
     /**
@@ -92,7 +134,7 @@ class RoomsController extends Controller
     public function edit($id)
     {
 
-        return view('admin.pages.room.edit-room')
+    return view('admin.pages.room.edit-room')
             ->with('room', $room = Room::find($id))
             ->with('teachers',  Teacher::where('defined_role', 0)->get()) 
             ->with('current_teacher',Teacher::where('id_no',$room->class_teacher)->get())           
@@ -111,8 +153,8 @@ class RoomsController extends Controller
         $this->validate($request,[
             'class_referance_number' => 'required|numeric',
             'class_name' => 'required|string|min:3',
-            'class_capacity' => 'required|numeric',
-            'class_teacher' => 'required|string|min:3'
+            // 'class_capacity' => 'required|numeric',
+            // 'class_teacher' => 'required|string|min:3'
             ]);
 
 
@@ -121,7 +163,7 @@ class RoomsController extends Controller
                         'room_ref'=>$request->class_referance_number,
                         'class_name'=>$request->class_name,
                         'class_capacity'=>$request->class_capacity,
-                        'class_teacher'=>$request->class_teacher,
+                        // 'class_teacher'=>$request->class_teacher,
                         
                     ]);
             

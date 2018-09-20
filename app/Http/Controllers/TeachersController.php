@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class TeachersController extends Controller
 {
-
-
         /**
      * Create a new controller instance.
      *
@@ -19,7 +17,7 @@ class TeachersController extends Controller
      */
     public function __construct()
     {
-        //  $this->middleware(['auth:teacher']);
+         $this->middleware(['auth:admin']);
     }
     
     /**
@@ -60,11 +58,12 @@ class TeachersController extends Controller
     {
         $this->validate($request,
             [
-            'name' => 'required|max:255',
-            'tel' => 'required|max:255',
-            'id_no' => 'required|max:255',
+            'name' => 'required|string',
+            'tel' => 'required|max:10|regex:/^(07)[0-9]{8}/',
+            'id_no' => 'required|numeric|digits_between:7,8',
             'email' => 'required|email|max:255|unique:teachers',
             'password' => 'required|min:6|confirmed',
+
              ]);
 
             DB::table('teachers')->insert(
@@ -119,8 +118,8 @@ class TeachersController extends Controller
         $this->validate($request,
             [
             'name' => 'required|max:255',
-            'tel' => 'required|max:255',
-            'id_no' => 'required|max:255',
+            'tel' => 'required|max:10|regex:/^(07)[0-9]{8}/',
+            'id_no' => 'required|numeric|digits_between:7,8',
             'email' => 'required|email|max:255',
             't_role' => 'required|max:255'
              ]);
@@ -132,25 +131,30 @@ class TeachersController extends Controller
                                 'tel'=>$request->tel,
                                 'id_no'=>$request->id_no,
                                 'email'=>$request->email,
-                                'role'=>$request->t_role
+                                'role'=>$request->t_role                                
                             ]);
-        
 
-             // return DB::table('room_heads')->where('id_no', $id)->doesntExist();
-             if($request->t_role === "Teacher"){
-
+            if ($request->t_role === 'Teacher') {
+                // delete record from room_heads
                 DB::table('room_heads')
-                    ->where('id_no', $request->id_no)
-                    ->delete();
-                // DB::table('room_heads')->update(
-                //     [
-                //     'id_no' =>  $request->id_no, 
-                //     'room_ref' => $request->input('room'),
-                //     'active' => 0    
-                //     ]
-                // ); 
-            
+                        ->where('id_no', $request->id_no)
+                        ->delete();
+                        
+                // up[date column to 0
+                DB::table('teachers')->where('id', $id)
+                        ->update(
+                            [
+                                'defined_role'=> 0                                
+                            ]);
+            } else {
+                DB::table('teachers')->where('id', $id)
+                        ->update(
+                            [
+                                'defined_role'=> 1                               
+                            ]);
             }
+
+
             if ($request->input('room') != null) {                  
                     if(DB::table('room_heads')->where('id_no', $request->id_no)->exists()){
                         return redirect()->route('teachers.index')

@@ -19,6 +19,7 @@ class CreateTeachersTable extends Migration
             $table->string('id_no')->unique();
             $table->string('email')->unique();
             $table->string('role')->default('Teacher');
+            $table->string('defined_role')->default('0');
             $table->string('password');
             $table->rememberToken();
             $table->timestamp('created_at')->useCurrent();

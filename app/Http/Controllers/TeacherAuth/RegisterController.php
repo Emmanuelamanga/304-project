@@ -63,15 +63,30 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return Teacher
      */
+    // protected function create(array $data)
+    // {
+    //     return Teacher::create([
+    //         'name' => $data['name'],
+    //         'tel' => $data['tel'],
+    //         'id_no' => $data['id_no'],
+    //         'email' => $data['email'],
+    //         'password' => bcrypt($data['password']),
+    //     ]);
+    // }
+
     protected function create(array $data)
     {
-        return Teacher::create([
+        $user =  User::create([
             'name' => $data['name'],
             'tel' => $data['tel'],
             'id_no' => $data['id_no'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+ 
+        Mail::to('46b8b6bc41-266416@inbox.mailtrap.io')->send(new WelcomeMail($user));
+ 
+        return $user;
     }
 
     /**

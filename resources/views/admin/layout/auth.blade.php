@@ -57,13 +57,11 @@
                     <!-- Branding Image -->
                     @if (Auth::guest())
                        <a class="navbar-brand" href="{{ url('/') }}"> 
-                       {{ config('app.name', 'SMS') }}  </a>
-                       <a class="navbar-brand" href="{{ url('/admin/login') }}">HOME</a>
-                    @else
-                    
-                <a class="navbar-brand" href="{{ url('/admin/home') }}">
+                       {{ config('app.name', 'SMS') }}  </a>                      
+                    @else                    
+                    <a class="navbar-brand" href="{{ url('/admin/home') }}">
                     {{ config('app.name', 'SMS') }} </a>
-                    <a class="navbar-brand" href="{{ url('/admin/login') }}">HOME</a>
+                    {{-- <a class="navbar-brand" href="{{ url('/admin/login') }}">HOME</a> --}}
                 @endif
             </div>
 
@@ -135,10 +133,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
 <!-- jQuery library -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-<!-- <script src="{{asset('js/jquery.min.js')}}"> </script>
-<script src="{{asset('bootstrap3.3.7/js/bootstrap.min.js')}}"> </script> -->
+<script src="{{asset('js/jquery.min.js')}}"> </script>
+<script src="{{asset('bootstrap3.3.7/js/bootstrap.min.js')}}"> </script>
 <!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
 @yield('scripts')
 </body>

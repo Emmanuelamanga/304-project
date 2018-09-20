@@ -18,8 +18,8 @@ class CreateRoomsTable extends Migration
             $table->increments('id');
             $table->string('room_ref')->unique();
             $table->string('class_name');
-            $table->integer('class_capacity');
-            $table->string('class_teacher')->nullable();
+            // $table->integer('class_capacity');
+            // $table->string('class_teacher')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

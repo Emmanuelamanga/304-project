@@ -7,90 +7,52 @@
 
 @section('window')
     @include('admin.inc.messages')
-	<h3 class="text-center">
-		ALL ROOMS
-	</h3>
-
-
-        <table class="table table-bordered">
-	@if(count($rooms)>0)  
-		@foreach($rooms as $room)
-
-        <thead><th colspan="6" class="text-center h2">{{strtoupper($room->class_name)}}</th></thead>
-            <thead>
+<div class="panel panel-default">
+    <div class="panel-heading h2 text-center">ALL CLASS ROOMS </div>
+    <div class="panel-body">
+            <!-- check room availability -->
+        @if(count($rooms)>0)
             
-                <th>REf NO.</th>
-                <th>CLASS NAME</th>
-                <th>CAPACITY</th>
-                <th>CLASS TEACHER</th>
-                <th>CREATED AT</th>
-                <th>UPDATED AT</th>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{$room->ref_no}}</td> 
-                    <td>{{$room->class_name}}</td>
-                    <td>{{$room->class_capacity}}</td>
-                    <td>{{$room->class_teacher}}</td>
-                    <td>{{$room->created_at}}</td>
-                    <td>{{$room->updated_at}}</td>
-                    <td><a href="rooms/{{$room->id}}/edit" class="btn btn-info my-4 btn-block"> <i class="glyphicon glyphicon-eye-open"></i> EDIT</a></td>
-                    <td><button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#myModal"> <i class='glyphicon glyphicon-remove'></i> DELETE</button></td>
-                </tr>
-            </tbody>
-            <tfoot>
-               <tr> 
-                <td colspan="2"></td>
-               
-               </tr> 
-            </tfoot>
+            @foreach($rooms as $room)
+                <table class="table table-bordered">
+                    <thead>
+                    <tr ><th class="text-center" colspan="5">{{$room->class_name}}</th></tr> 
+                    
+                        <th>Class Name</th>
+                        <th>Class Teacher</th>
+                        <th>Class Capacity</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>EDIT</th>
+                    </thead>
+                    <!-- check subrooms  availability -->
+                    @if(count($sub_rooms)>0)                    
+                        @foreach($sub_rooms as  $sub_room)
+                        <!-- populate subrooms of current room -->
+                            @if($room->room_ref == $sub_room->room_ref)
+                            <tbody>
+                                <tr>                            
+                                    <td>{{$sub_room->sub_class_name}}</td>
+                                    <td>{{$c_teacher->get_classTeacher($sub_room->class_teacher)->name}}</td>
+                                    <td>{{$sub_room->class_capacity}}</td>
+                                    <td>{{$sub_room->updated_at}}</td>
+                                    <td>{{$sub_room->created_at}}</td>
+                                    <td><a href="{{route('sub_room.show', [$sub_room->id])}}" class="btn btn-info btn-sm"> <span class="glyphicon glyphicon-edit"></span> EDIT</a></td>
+                                </tr>
+                            </tbody>   
+                            @endif
+                            
+                        @endforeach
+                    @else
+                        no subrooms
+                    @endif 
+                     <!--end check sub rooms  -->
+                </table>
             @endforeach
-            </table>
-                  <!-- Modal -->
-            <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                <div class="modal-header alert-danger">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body test-uppercase">
-                PLEASE CONFIRM THAT YOU WANT TO <b>PERMANENTLY DELETE <span class="badge"> {{strtoupper($room->class_name)}} </span>CLASS</b>  RECORDS ...!!
-                </div>
-                <div class="modal-footer">
-                <table class="pull-right">
-                    <tr>
-                        <td>  
-                        <form action="{{route('rooms.destroy',$room->id)}}" method="post">
-                                    {{ csrf_field() }}
-                                    {{ method_field('delete') }}
-                                    <button class="btn btn-danger btn-sm" type="submit"> <i class='glyphicon glyphicon-remove'></i> DELETE</button>
-                            </form> 
-                            </td>
-                            <td>&nbsp;&nbsp;
-                                <button type="button" class="btn btn-default float-right" data-dismiss="modal">Close</button>
-                            </td>
-                    </tr>
-                
-                </div>
-                </div>
-            </div>
-        
-            <!-- //modal -->
-                  </table>  
-                @else
-                <div class="alert alert-info alert-block">
-
-            <button type="button" class="close" data-dismiss="alert"><a href="{{route('rooms.create')}}">×</a></button>	
-
-            <strong>    NO ROOMS </strong>
-
-            </div>
-                @endif
-         
-        </div>
-        <br>
-  
-
+        @else
+            no rooms
+        @endif
+    </div>
+</div>   
 
 @endsection

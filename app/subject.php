@@ -15,4 +15,11 @@ class subject extends Model
         $this->hasMany('App\Teacher');
         
     }
+
+     // get subjects
+     public function get_subject($sub){
+
+        return  Subject::where('ref_no', $sub)->first(); 
+      
+     }
 }

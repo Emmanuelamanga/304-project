@@ -16,15 +16,13 @@ class CreateResultsTable extends Migration
         Schema::create('results', function (Blueprint $table) {
             $table->increments('id');
             $table->string('adm_no')->unique();
-            // $table->string('ref_no');
-            // $table->string('marks');
             $table->string('math');
             $table->string('eng');
             $table->string('kiswahili');
             $table->string('physics');
             $table->string('biology');
             $table->string('chemistry');
-            $table->string('C.R.E');
+            $table->string('CRE');
             $table->string('history');
             $table->string('computer');
             $table->string('business');

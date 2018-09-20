@@ -61,12 +61,11 @@
                         {{$teacher->role}} <br>
                         @if(count($teacher_heads)>0)
                             @foreach($teacher_heads as $teacher_head)
-                                @if($teacher_head->id_no == $teacher_id_no)
-                                    {{}}
-                                @else
-
+                                @if($teacher_head->id_no == $teacher->id_no)
+                                   <b><i>{!!$teacher_head->room_name($teacher_head->room_ref)->class_name!!}</i></b> 
                                 @endif
                             @endforeach
+                        @endif
                      </td>
                     <td>{{$teacher->tel}}</td>
                 
@@ -150,7 +149,7 @@
 
 @section('scripts')
 <!-- Latest compiled and minified JavaScript -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script> -->
 
 <!-- Latest compiled and minified Locales -->
 <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/locale/bootstrap-table-zh-CN.min.js"></script> -->

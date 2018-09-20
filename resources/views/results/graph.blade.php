@@ -9,7 +9,7 @@
     <title>FusionCharts | My First Chart</title>
     <!-- <script src="path/to/local/fusioncharts.js"></script> -->
  <!-- <script src="path/to/local/themes/fusioncharts.theme.fusion.js"></script> -->
-    <script type="text/javascript" src="{{ asset('js/php_charts/fusioncharts-suite-xt/js/fusioncharts.js') }}"></script> -->
+    <script type="text/javascript" src="{{ asset('js/php_charts/fusioncharts-suite-xt/js/fusioncharts.js') }}"></script> 
     <script type="text/javascript" src="{{ asset('js/php_charts/fusioncharts-suite-xt/js/fusioncharts.charts.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/php_charts/fusioncharts-suite-xt/js/themes/fusioncharts.theme.fint.js') }}"></script>
 </head>

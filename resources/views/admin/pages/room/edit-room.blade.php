@@ -25,7 +25,7 @@
             <label for="name" class="col-md-4 control-label">CLASS REFERANCE NUMBER</label>
                 <div class="col-md-6">
                     <div class="form-group{{ $errors->has('class_referance_number') ? ' has-error' : '' }}">  
-                        <input id="class_referance_number" type="text" class="form-control {{ $errors->has('class_referance_number') ? ' is-invalid' : '' }}" name="class_referance_number" value="{{ old('$room->ref_no',$room->ref_no) }}">
+                        <input id="class_referance_number" type="text" class="form-control {{ $errors->has('class_referance_number') ? ' is-invalid' : '' }}" name="class_referance_number" value="{{ old('$room->room_ref',$room->room_ref) }}">
                         @if ($errors->has('class_referance_number'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('class_referance_number') }}</strong>
@@ -67,13 +67,13 @@
                     @foreach($current_teacher as $tch)
                         <small>current: {{$tch->id_no }} : {{strtoupper($tch->name)}}</small>
                     @endforeach
-                    
+                     @endif
                     <select class="form-control {{ $errors->has('class_teacher') ? 'is-invalid' : '' }}" name="class_teacher" >
                         
                         @foreach($current_teacher as $tch)
                             <option value="{{$tch->id_no}}" selected>{{$tch->id_no }} : {{strtoupper($tch->name)}}</option> 
                         @endforeach
-            @endif
+           
                         @if(count($teachers)>0)
                             @foreach($teachers as $teacher)
                                 <option value="{{$teacher->id_no}}">{{$teacher->id_no}} : {{strtoupper($teacher->name)}}</option> 
